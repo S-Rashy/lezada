@@ -37,9 +37,6 @@ const slides = [
 
 <template>
     <main class="">
-        <!-- <div class="mx-auto h-[400px] w-[750px] bg-[url('https://lezada-demo.myshopify.com/cdn/shop/files/banner-carousel-1_1170x.jpg?v=1613746686')] bg-center bg-cover">
-            <MainButton> SHOP NOW</MainButton>
-        </div> -->
 
         <div  v-for="slide in slides" :key="slide.id"
         class="mx-auto h-[400px] w-[750px] bg-center bg-cover"
