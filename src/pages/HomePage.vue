@@ -7,7 +7,7 @@ import Shelf from '@/components/homeComps/Shelf.vue';
 </script>
 
 <template>
-    <main class="px-12">
+    <main class="px-12 py-25">
         <Hero/>
         <Shelf/>
         <ProductDisplay/>
