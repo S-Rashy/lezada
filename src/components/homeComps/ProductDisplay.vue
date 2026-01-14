@@ -8,11 +8,11 @@ const productStore = useProductStore()
 onMounted(() => {
   productStore.fetchProducts()
 })
-const allProducts = computed(() => productStore.products.slice(8, 16))
+const allProducts = computed(() => productStore.products.slice(7, 16))
 </script>
 
 <template>
-  <div class="grid grid-cols-3">
+  <div class="grid grid-cols-3 gap-8">
     <ProductCard v-for="(product, index) in allProducts" :key="index" :product="product" />
   </div>
 </template>

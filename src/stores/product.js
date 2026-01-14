@@ -13,7 +13,6 @@ export const useProductStore = defineStore("product", () => {
       } catch (error) {
         console.error("Error fetching users:", error);
       }
-      const allProducts = computed(() => products.value);
 }
   
   

@@ -10,7 +10,7 @@
 </script>
 
 <template>
-  <main class="group">
+  <main class="group space-y-5">
     <div
       class="h-[450px] w-[350px] bg-[#F5F5F5] rounded-[4px] pt-4 flex flex-col justify-between relative overflow-hidden group"
     >
@@ -42,9 +42,9 @@
       </aside>
     </div>
 
-    <div class="my-4 flex flex-col gap-2 text-[#333333]">
+    <div class="my-4 flex flex-col gap-4 text-[#333333]">
       <h4
-        class="font-medium w-[300px] truncate cursor-pointer group-hover:-translate-y-6 group-hover:opacity-0 transition-all duration-600"
+        class=" w-[300px] truncate cursor-pointer group-hover:-translate-y-6 group-hover:opacity-0 transition-all duration-600"
       >
         {{ product.id }}. {{ product.title }}
       </h4>
@@ -54,7 +54,7 @@
         + Add to cart
       </button>
 
-      <p>
+      <p class="font-semibold text-[#333333]">
         ${{ (product.price - product.price * 0.1).toFixed(2) }}
         <span class="line-through text-[#777] 2"> ${{ product.price.toFixed(2) }} </span>
       </p>
