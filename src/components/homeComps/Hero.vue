@@ -44,7 +44,7 @@ const slides = [
             >
                 <div class="flex flex-col justify-center h-full gap-6 w-[300px] mx-15">
                     <h3 class="text-lg font-semibold tracking-[3px]" :style="`color: ${slide.titleColor}`">{{slide.title}}</h3>
-                    <h1 class="text-4xl font-semibold leading-[45px] tracking-[1px] text-[#333333]">{{slide.name}}</h1>
+                    <h2 class="text-4xl font-semibold leading-[45px] tracking-[1px] text-[#333333]">{{slide.name}}</h2>
                     <MainButton class="w-[200px]"> SHOP NOW</MainButton>
                 </div>
             </div>

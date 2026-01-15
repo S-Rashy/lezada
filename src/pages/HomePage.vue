@@ -9,8 +9,8 @@ import Shelf from '@/components/homeComps/Shelf.vue';
 <template>
     <main class="px-12 py-25">
         <Hero/>
-        <Shelf/>
         <ProductDisplay/>
+        <Shelf/>
     </main>
 </template>
 
