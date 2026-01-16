@@ -9,27 +9,27 @@ const slides = [
     name: ' Bottle Grinder, Small, 2-Piece',
     image: 'https://lezada-demo.myshopify.com/cdn/shop/files/banner-carousel-1_1170x.jpg?v=1613746686',
     },
-    {
-    id: 2,
-    title: 'HANDMADE',
-    titleColor: '#c5a374',
-    name: ' Bottle Grinder, Small, 2-Piece',
-    image: 'https://lezada-demo.myshopify.com/cdn/shop/files/banner-carousel-2_1170x.jpg?v=1613746686',
-    },
-    {
-    id: 3,
-    title: 'LIGHTING',
-    titleColor: '#7A9F63',
-    name: ' Bottle Grinder, Small, 2-Piece',
-    image: 'https://lezada-demo.myshopify.com/cdn/shop/files/banner-carousel-3_1170x.jpg?v=1613746686',
-    },
-    {
-    id: 4,
-    title: 'DECOR',
-    titleColor: '#C5A374',
-    name: ' Bottle Grinder, Small, 2-Piece',
-    image: 'https://lezada-demo.myshopify.com/cdn/shop/files/banner-carousel-4_1170x.jpg?v=1613746686',
-    },
+    // {
+    // id: 2,
+    // title: 'HANDMADE',
+    // titleColor: '#c5a374',
+    // name: ' Bottle Grinder, Small, 2-Piece',
+    // image: 'https://lezada-demo.myshopify.com/cdn/shop/files/banner-carousel-2_1170x.jpg?v=1613746686',
+    // },
+    // {
+    // id: 3,
+    // title: 'LIGHTING',
+    // titleColor: '#7A9F63',
+    // name: ' Bottle Grinder, Small, 2-Piece',
+    // image: 'https://lezada-demo.myshopify.com/cdn/shop/files/banner-carousel-3_1170x.jpg?v=1613746686',
+    // },
+    // {
+    // id: 4,
+    // title: 'DECOR',
+    // titleColor: '#C5A374',
+    // name: ' Bottle Grinder, Small, 2-Piece',
+    // image: 'https://lezada-demo.myshopify.com/cdn/shop/files/banner-carousel-4_1170x.jpg?v=1613746686',
+    // },
 
 ]
 
