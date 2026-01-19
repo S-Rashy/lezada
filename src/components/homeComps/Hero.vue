@@ -40,10 +40,7 @@ const slides = [
   },
   
 ]
-// const autoplay = Autoplay({
-//   delay: 4000,      // 4 seconds
-//   pauseOnHover: true,
-// })
+
 </script>
 
 <template>
@@ -54,7 +51,7 @@ const slides = [
       :transition="700"
       :autoplay="4000"
       :pause-autoplay-on-hover="true"
-      class="w-[750px]"
+      class="hero-carousel"
     >
     <Slide
     v-for="slide in slides"
@@ -85,20 +82,32 @@ const slides = [
 
 
 <style scoped>
+    .hero-carousel {
+  width: 900px;
+}
 .carousel__prev,
 .carousel__next {
-  background: white;
-  border-radius: 9999px;
-  width: 44px;
-  height: 44px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background: transparent;
+  width: 120px;
+  height: 120px;
+    z-index: 10;
+
 }
 
 .carousel__prev {
-  left: -22px;
+  left: -90px;
 }
 
 .carousel__next {
-  right: -22px;
+  right: -90px;
+}
+
+
+:deep(.carousel__prev svg),
+:deep(.carousel__next svg) {
+    stroke: #333;
+    stroke-width: 1.5;
+  width: 100px;
+  height: 100px;
 }
 </style>
