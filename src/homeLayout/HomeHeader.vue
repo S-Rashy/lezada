@@ -6,7 +6,7 @@ import {Icon} from '@iconify/vue';
 <template>
 
    <main class="fixed bg-white w-full top-0 left-0 right-0 z-50 shadow-sm">
-       <header class="p-8 flex justify-between">
+       <header class="p-8 flex justify-between ">
         <a href="/" class="">
             <img src="https://lezada-demo.myshopify.com/cdn/shop/files/logo_300x300.png?v=1613746425" alt="Logo">
         </a>
@@ -32,5 +32,5 @@ import {Icon} from '@iconify/vue';
 
 
 <style lang="scss" scoped>
-
+   
 </style>
