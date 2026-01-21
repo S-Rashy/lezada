@@ -1,14 +1,17 @@
 <script setup>
 // import CatalogDD from '@/components/headerComps/CatalogDD.vue';
 import { Icon } from '@iconify/vue'
-{
-  /* <Icon icon="mdi:home" width="24" height="24" /> */
-}
+import { computed } from 'vue'
+import { useWishlistStore } from '@/stores/wishlist'
+
+const wishlistStore = useWishlistStore()
+
+const wishlistCount = computed(() => wishlistStore.wishlistCount)
 </script>
 
 <template>
-  <main class="fixed bg-white w-full top-0 left-0 right-0 z-50 shadow-sm ">
-    <header class="p-8 flex justify-between ">
+  <main class="fixed bg-white w-full top-0 left-0 right-0 z-50 shadow-sm">
+    <header class="p-8 flex justify-between">
       <a href="/" class="">
         <img
           src="https://lezada-demo.myshopify.com/cdn/shop/files/logo_300x300.png?v=1613746425"
@@ -42,11 +45,25 @@ import { Icon } from '@iconify/vue'
       </nav>
       <div class="flex gap-10">
         <Icon icon="tdesign:search" width="24" height="24" />
-        
+
         <RouterLink to="/account/login">
           <Icon icon="ri:user-fill" width="24" height="24" />
         </RouterLink>
-        <Icon icon="solar:heart-outline" width="24" height="24" />
+
+        <RouterLink to="/" class="relative">
+          <p
+            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 right-0 z-20"
+            v-if="wishlistCount > 0"
+          >
+            {{ wishlistCount }}
+          </p>
+          <Icon
+            icon="solar:heart-outline"
+            width="24"
+            height="24"
+            class=" relative z-10 hover:scale-120 font-semibold transition-all duration-200 ease-in"
+          />
+        </RouterLink>
         <Icon icon="vaadin:cart" width="24" height="24" />
       </div>
     </header>
