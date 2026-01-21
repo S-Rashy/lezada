@@ -4,6 +4,7 @@ import SignUp from '@/components/authComps/SignUp.vue'
 import AuthLayout from '@/layouts/authLayout/AuthLayout.vue'
 import HomeLayout from '@/layouts/homeLayout/HomeLayout.vue'
 import HomePage from '@/pages/HomePage.vue'
+import WishlistPage from '@/pages/WishlistPage.vue'
 
 export default [
   {
@@ -12,6 +13,7 @@ export default [
     component: HomeLayout,
     children: [
       { path: '', name: 'HomePage', component: HomePage },
+      { path: 'wishlist', name: 'WishlistPage', component: WishlistPage },
       {
         path: 'account',
         name: 'AuthPage',

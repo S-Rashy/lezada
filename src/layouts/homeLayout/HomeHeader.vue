@@ -1,5 +1,5 @@
 <script setup>
-// import CatalogDD from '@/components/headerComps/CatalogDD.vue';
+import CatalogDD from '@/components/headerComps/CatalogDD.vue';
 import { Icon } from '@iconify/vue'
 import { computed } from 'vue'
 import { useWishlistStore } from '@/stores/wishlist'
@@ -28,7 +28,7 @@ const wishlistCount = computed(() => wishlistStore.wishlistCount)
               <a href="/" class="flex items-center gap-[2px]"
                 >Catalog <Icon icon="ep:arrow-down" width="16" height="16"
               /></a>
-              <!-- <CatalogDD/> -->
+              <CatalogDD/>
             </li>
           </div>
           <li>
@@ -50,7 +50,7 @@ const wishlistCount = computed(() => wishlistStore.wishlistCount)
           <Icon icon="ri:user-fill" width="24" height="24" />
         </RouterLink>
 
-        <RouterLink to="/" class="relative">
+        <RouterLink to="/wishlist" class="relative">
           <p
             class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 right-0 z-20"
             v-if="wishlistCount > 0"
@@ -61,7 +61,7 @@ const wishlistCount = computed(() => wishlistStore.wishlistCount)
             icon="solar:heart-outline"
             width="24"
             height="24"
-            class=" relative z-10 hover:scale-120 font-semibold transition-all duration-200 ease-in"
+            class="relative z-10 hover:scale-120 font-semibold transition-all duration-200 ease-in"
           />
         </RouterLink>
         <Icon icon="vaadin:cart" width="24" height="24" />

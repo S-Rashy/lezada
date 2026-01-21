@@ -22,13 +22,32 @@ const displayedProducts = computed(() => {
 })
 </script>
 
-<template> 
+<template>
   <main class="">
     <div class="flex justify-center gap-10 my-12">
-      <h2 @click="prodTab = 1" :class="prodTab === 1 ? 'text-[#333333]' : 'text-[#777]'" class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300">New</h2>
-      <h2 @click="prodTab = 2" :class="prodTab === 2 ? 'text-[#333333]' : 'text-[#777]'" class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300">Popular</h2>
-      <h2 @click="prodTab = 3" :class="prodTab === 3 ? 'text-[#333333]' : 'text-[#777]'" class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300">Sale</h2>
-    </div>  <div class="grid grid-cols-3 gap-8">
+      <h2
+        @click="prodTab = 1"
+        :class="prodTab === 1 ? 'text-[#333333]' : 'text-[#777]'"
+        class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300"
+      >
+        New
+      </h2>
+      <h2
+        @click="prodTab = 2"
+        :class="prodTab === 2 ? 'text-[#333333]' : 'text-[#777]'"
+        class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300"
+      >
+        Popular
+      </h2>
+      <h2
+        @click="prodTab = 3"
+        :class="prodTab === 3 ? 'text-[#333333]' : 'text-[#777]'"
+        class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300"
+      >
+        Sale
+      </h2>
+    </div>
+    <div class="grid grid-cols-3 gap-8">
       <ProductCard v-for="(product, index) in displayedProducts" :key="index" :product="product" />
     </div>
   </main>

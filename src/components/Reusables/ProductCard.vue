@@ -16,8 +16,6 @@ const isInWishlist = computed(() =>
 )
 const toggleWishlist = (product) => {
   wishlistStore.toggleWishlist(product)
-  console.log(wishlistStore.wishlist)
-  console.log(wishlistStore.wishlistCount)
 
 }
 </script>
