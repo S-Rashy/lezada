@@ -43,7 +43,7 @@ const menuCategories = [
   <nav class="bg-white">
     <div class="relative inline-block group">
       <div
-        class="absolute left-0 top-full z-50 w-[1000px] items-center opacity-0 -translate-x-1/3 translate-y-8 invisible group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible transition-all duration-300 ease-out bg-white p-10 shadow-md"
+        class="absolute left-0 top-full z-50 w-[1000px] items-center opacity-0 -translate-x-95 translate-y-8 invisible group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible transition-all duration-300 ease-out bg-white p-10 shadow-md"
       >
         <div class="grid grid-cols-4 gap-12">
           <div v-for="{ title, items } in menuCategories" :key="title">
@@ -81,16 +81,16 @@ const menuCategories = [
           </div>
 
           <div class="pl-10 border-l border-gray-100">
-            <div class="overflow-hidden mb-4">
+            <div class="overflow-hidden mb-4 w-full">
               <img
-                src="https://picsum.photos/seed/art/400/320"
+                src="https://lezada-demo.myshopify.com/cdn/shop/products/per1_360x.jpg?v=1551249474"
                 alt="Featured"
-                class="w-full h-44 object-cover hover:scale-105 transition-transform duration-500"
+                class="w-full h-44 object-contain "
               />
             </div>
-            <h4 class="text-gray-800 font-bold text-sm">Organic Moon Fruit</h4>
+            <h4 class=" font-medium text-sm">Organic Moon Fruit</h4>
             <div class="flex items-center gap-2 mt-1">
-              <span class="text-black font-bold text-sm">$39.00</span>
+              <span class="text-black text-sm">$39.00</span>
               <span class="text-gray-400 line-through text-xs">$60.00</span>
             </div>
           </div>
