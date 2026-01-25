@@ -3,8 +3,8 @@ const menuCategories = [
   {
     title: 'Popular',
     items: [
-      { name: 'Causal', badge: 'NEW' },
-      { name: 'Exclusive' },
+      { name: 'Causal' },
+      { name: 'Exclusive', badge: 'NEW' },
       { name: 'Aligori' },
       { name: 'Churidar' },
       { name: 'Shalwar' },
@@ -16,8 +16,8 @@ const menuCategories = [
     title: 'Best Selling',
     items: [
       { name: 'Sandals' },
-      { name: 'Bast shoe', badge: 'NEW' },
-      { name: 'Blucher shoe' },
+      { name: 'Bast shoe' },
+      { name: 'Blucher shoe', badge: 'NEW' },
       { name: 'Boat shoe' },
       { name: 'Brogan' },
       { name: 'Chelsea boot' },
@@ -28,8 +28,8 @@ const menuCategories = [
     title: 'New Product',
     items: [
       { name: 'Belt' },
-      { name: 'Wallets' },
-      { name: 'Card Holders', badge: 'SALE' },
+      { name: 'Wallets', badge: 'SALE'  },
+      { name: 'Card Holders'},
       { name: 'Bags' },
       { name: 'Executive bag' },
       { name: 'Cufflinks' },
