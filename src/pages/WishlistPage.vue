@@ -18,13 +18,16 @@ const wishlist = computed(() => wishlistStore.wishlist)
       </PageHeader>
     </div>
 
-    <div v-if="wishlist.length > 0" class="grid grid-cols-3 gap-8 p-6" >
+    <div v-if="wishlist.length > 0" class="grid grid-cols-3 gap-8 p-6">
       <ProductCard v-for="(product, index) in wishlist" :key="index" :product="product" />
     </div>
 
     <div v-if="wishlist.length <= 0" class="space-y-4 py-20 px-8">
       <p class="text-4xl text-[#333333]">Your wishlist is currently empty!</p>
-      <p class="text-[#777777]">Continue browsing <span class="font-medium text-[#333333] hover:underline"><a href="/">here</a></span></p>
+      <p class="text-[#777777]">
+        Continue browsing
+        <span class="font-medium text-[#333333] hover:underline"><a href="/">here</a></span>
+      </p>
     </div>
   </main>
 </template>
