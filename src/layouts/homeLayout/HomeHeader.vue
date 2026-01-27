@@ -28,7 +28,7 @@ const wishlistCount = computed(() => wishlistStore.wishlistCount)
               <a href="/" class="flex items-center gap-[2px]"
                 >Catalog <Icon icon="ep:arrow-down" width="16" height="16"
               /></a>
-              <CatalogDD/>
+              <!-- <CatalogDD/> -->
             </li>
           </div>
           <li>
@@ -51,12 +51,12 @@ const wishlistCount = computed(() => wishlistStore.wishlistCount)
         </RouterLink>
 
         <RouterLink to="/wishlist" class="relative">
-          <p
+          <!-- <p
             class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 right-0 z-20"
             v-if="wishlistCount > 0"
           >
             {{ wishlistCount }}
-          </p>
+          </p> -->
           <Icon
             icon="solar:heart-outline"
             width="24"
