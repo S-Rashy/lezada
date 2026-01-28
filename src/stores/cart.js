@@ -8,9 +8,10 @@ export const useCartStore = defineStore('cart', () => {
   const cartTotal = computed(() => {
     return cart.value.reduce((total, item) => total + item.price * item.qty, 0)
   })
-  const existingItem = cart.value.find((item) => item.id === product.id)
 
   const addToCart = (product) => {
+    const existingItem = cart.value.find((item) => item.id === product.id)
+
     if (existingItem) {
       existingItem.qty++
     } else {
@@ -18,22 +19,38 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  const increaseQty = () => {
-   if (existingItem) {
+  const increaseQty = (id) => {
+    const existingItem = cart.value.find((item) => item.id === id)
+
+    if (existingItem) {
       existingItem.qty++
-    } }
-    
-  const decreaseQty = () => {
-   if (existingItem && existingItem.qty > 1) {
+    }
+  }
+
+  const decreaseQty = (id) => {
+    const existingItem = cart.value.find((item) => item.id === id)
+
+    if (existingItem && existingItem.qty > 1) {
       existingItem.qty--
-    } else{
-        removeFromCart()
-    }}
-    const removeFromCart = () => {
-        cart.value.filter((item) => item.id !== id )
+    } else {
+      removeFromCart(id)
     }
-    const clearCart = () => {
-        cart.value = []
-    }
-  return { cart, cartCount, cartTotal, addToCart, increaseQty, decreaseQty, removeFromCart, clearCart }
+  }
+  const removeFromCart = (id) => {
+    cart.value = cart.value.filter((item) => item.id !== id)
+  }
+
+  const clearCart = () => {
+    cart.value = []
+  }
+  return {
+    cart,
+    cartCount,
+    cartTotal,
+    addToCart,
+    increaseQty,
+    decreaseQty,
+    removeFromCart,
+    clearCart,
+  }
 })

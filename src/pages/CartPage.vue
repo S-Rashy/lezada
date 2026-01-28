@@ -6,8 +6,22 @@ import { Icon } from '@iconify/vue'
 
 const cartStore = useCartStore()
 const cart = computed(() => cartStore.cart)
-const increase = (id)=> {
-    cartStore.increaseQty(id)
+const cartTotal = computed(() => cartStore.cartTotal)
+
+const increaseQty = (id) => {
+  cartStore.increaseQty(id)
+}
+
+const decreaseQty = (id) => {
+  cartStore.decreaseQty(id)
+}
+
+const removeFromCart = (id) => {
+  cartStore.removeFromCart(id)
+}
+
+const clearCart = () => {
+  cartStore.clearCart()
 }
 </script>
 
@@ -21,7 +35,7 @@ const increase = (id)=> {
 
   <table class="mx-auto">
     <thead>
-      <tr>
+      <tr class="uppercase">
         <th>Product</th>
         <th>Price</th>
         <th>Quantity</th>
@@ -30,29 +44,44 @@ const increase = (id)=> {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, index) in cart" :key="index">
+      <tr v-for="item in cart" :key="item.id">
         <td>
           <div class="flex gap-2">
-            <img :src="item.image" alt="" class="w-10 object-contain border-r" />
-            {{ item.id }}. {{ item.title }}
+            <div class="border-r h-22 w-20 flex items-center justify-center">
+              <img :src="item.image" alt="" class="w-10 object-contain border" />
+            </div>
+            <span>{{ item.id }}. {{ item.title }}</span>
           </div>
         </td>
-        <td>{{ item.price }}</td>
+        <td>${{ item.price.toFixed(2) }}</td>
         <td>
           <div class="flex gap-3">
-              <p @click="increase">-</p>
-              {{ item.qty }}
-              <p>+</p>
+            <p @click="decreaseQty(item.id)">-</p>
+            {{ item.qty }}
+            <p @click="increaseQty(item.id)">+</p>
           </div>
         </td>
-        <td>{{ item.price * item.qty }}</td>
-        <td><Icon icon="fluent-mdl2:cancel" width="24" height="24" /></td>
+        <td>${{ (item.price * item.qty).toFixed(2) }}</td>
+        <td>
+          <div class="border h-12 w-12 flex items-center justify-center">
+            <Icon
+              icon="fluent-mdl2:cancel"
+              @click="removeFromCart(item.id)"
+              class="cursor-pointer hover:text-red-500"
+              width="24"
+              height="24"
+            />
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <style scoped>
+th {
+  font-weight: 400;
+}
 th,
 td {
   border: 1px solid;
