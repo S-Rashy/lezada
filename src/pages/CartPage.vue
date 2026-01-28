@@ -6,6 +6,9 @@ import { Icon } from '@iconify/vue'
 
 const cartStore = useCartStore()
 const cart = computed(() => cartStore.cart)
+const increase = (id)=> {
+    cartStore.increaseQty(id)
+}
 </script>
 
 <template>
@@ -37,7 +40,7 @@ const cart = computed(() => cartStore.cart)
         <td>{{ item.price }}</td>
         <td>
           <div class="flex gap-3">
-              <p>-</p>
+              <p @click="increase">-</p>
               {{ item.qty }}
               <p>+</p>
           </div>
