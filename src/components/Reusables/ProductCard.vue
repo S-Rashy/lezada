@@ -2,7 +2,10 @@
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useWishlistStore } from '../../stores/wishlist'
+import { useCartStore } from '@/stores/cart'
+
 const wishlistStore = useWishlistStore()
+const cartStore = useCartStore()
 const props = defineProps({
   product: {
     type: Object,
@@ -17,6 +20,9 @@ const isInWishlist = computed(() =>
 const toggleWishlist = (product) => {
   wishlistStore.toggleWishlist(product)
 
+}
+const addToCart = () => {
+  cartStore.addToCart(props.product)
 }
 </script>
 
@@ -44,7 +50,6 @@ const toggleWishlist = (product) => {
             @click="toggleWishlist(product)"
             :class="[
               'cursor-pointer bg-white text-[#777] size-10 p-2',
-              // isInWishlist ? 'text-red-500' : 'text-blue-400 hover:text-red-500',
             ]"
           >
             <Icon 
@@ -74,6 +79,7 @@ const toggleWishlist = (product) => {
         {{ product.id }}. {{ product.title }}
       </h4>
       <button
+      @click="addToCart"
         class="text-[#D3122A] absolute cursor-pointer translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500"
       >
         + Add to cart

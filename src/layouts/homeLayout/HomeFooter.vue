@@ -31,12 +31,12 @@
             </div>
 
             <div class="flex gap-2">
-                <img src="../../src/assets/footerImgs/visa.svg" alt="" class="w-10">
-                <img src="../../src/assets/footerImgs/mastercard.svg" alt="" class="w-10">
-                <img src="../../src/assets/footerImgs/amex.svg" alt="" class="w-10">
-                <img src="../../src/assets/footerImgs/paypal.svg" alt="" class="w-10">
-                <img src="../../src/assets/footerImgs/diners.svg" alt="" class="w-10">
-                <img src="../../src/assets/footerImgs/discover.svg" alt="" class="w-10">
+                <img src="../../assets/footerImgs/visa.svg" alt="" class="w-10">
+                <img src="../../assets/footerImgs/mastercard.svg" alt="" class="w-10">
+                <img src="../../assets/footerImgs/amex.svg" alt="" class="w-10">
+                <img src="../../assets/footerImgs/paypal.svg" alt="" class="w-10">
+                <img src="../../assets/footerImgs/diners.svg" alt="" class="w-10">
+                <img src="../../assets/footerImgs/discover.svg" alt="" class="w-10">
             </div>
 
             <div class="flex gap-4 ">

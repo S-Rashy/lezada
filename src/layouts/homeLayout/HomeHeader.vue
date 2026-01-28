@@ -1,12 +1,15 @@
 <script setup>
-import CatalogDD from '@/components/headerComps/CatalogDD.vue';
+import CatalogDD from '@/components/headerComps/CatalogDD.vue'
 import { Icon } from '@iconify/vue'
 import { computed } from 'vue'
 import { useWishlistStore } from '@/stores/wishlist'
+import { useCartStore } from '@/stores/cart'
 
 const wishlistStore = useWishlistStore()
+const cartStore = useCartStore()
 
 const wishlistCount = computed(() => wishlistStore.wishlistCount)
+const cartCount = computed(() => cartStore.cartCount)
 </script>
 
 <template>
@@ -51,12 +54,12 @@ const wishlistCount = computed(() => wishlistStore.wishlistCount)
         </RouterLink>
 
         <RouterLink to="/wishlist" class="relative">
-          <!-- <p
+          <p
             class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 right-0 z-20"
             v-if="wishlistCount > 0"
           >
             {{ wishlistCount }}
-          </p> -->
+          </p>
           <Icon
             icon="solar:heart-outline"
             width="24"
@@ -64,7 +67,16 @@ const wishlistCount = computed(() => wishlistStore.wishlistCount)
             class="relative z-10 hover:scale-120 font-semibold transition-all duration-200 ease-in"
           />
         </RouterLink>
-        <Icon icon="vaadin:cart" width="24" height="24" />
+
+        <RouterLink to="/cart" class="relative">
+           <p
+            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 left-3 z-20"
+            v-if="cartCount > 0"
+          >
+            {{ cartCount }}
+          </p>
+          <Icon icon="vaadin:cart" width="24" height="24" />
+        </RouterLink>
       </div>
     </header>
   </main>

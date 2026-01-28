@@ -3,6 +3,7 @@ import ResetP from '@/components/authComps/ResetP.vue'
 import SignUp from '@/components/authComps/SignUp.vue'
 import AuthLayout from '@/layouts/authLayout/AuthLayout.vue'
 import HomeLayout from '@/layouts/homeLayout/HomeLayout.vue'
+import CartPage from '@/pages/CartPage.vue'
 import HomePage from '@/pages/HomePage.vue'
 import WishlistPage from '@/pages/WishlistPage.vue'
 
@@ -14,6 +15,7 @@ export default [
     children: [
       { path: '', name: 'HomePage', component: HomePage },
       { path: 'wishlist', name: 'WishlistPage', component: WishlistPage },
+      { path: 'cart', name: 'CartPage', component: CartPage },
       {
         path: 'account',
         name: 'AuthPage',
