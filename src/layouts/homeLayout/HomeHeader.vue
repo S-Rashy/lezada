@@ -31,7 +31,7 @@ const cartCount = computed(() => cartStore.cartCount)
               <a href="/" class="flex items-center gap-[2px]"
                 >Catalog <Icon icon="ep:arrow-down" width="16" height="16"
               /></a>
-              <!-- <CatalogDD/> -->
+              <CatalogDD/>
             </li>
           </div>
           <li>
