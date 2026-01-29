@@ -3,6 +3,8 @@ import { useCartStore } from '@/stores/cart'
 import PageHeader from '@/components/Reusables/PageHeader.vue'
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
+import MainButton from '@/components/Reusables/MainButton.vue'
+import EmptyCart from './EmptyCart.vue'
 
 const cartStore = useCartStore()
 const cart = computed(() => cartStore.cart)
@@ -26,56 +28,64 @@ const clearCart = () => {
 </script>
 
 <template>
-  <div>
-    <PageHeader>
-      <template #path>Home</template>
-      <template #page>Your Shopping Cart</template>
-    </PageHeader>
-  </div>
-
-  <table class="mx-auto">
-    <thead>
-      <tr class="uppercase">
-        <th>Product</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Total</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in cart" :key="item.id">
-        <td>
-          <div class="flex gap-2">
-            <div class="border-r h-22 w-20 flex items-center justify-center">
-              <img :src="item.image" alt="" class="w-10 object-contain border" />
-            </div>
-            <span>{{ item.id }}. {{ item.title }}</span>
-          </div>
-        </td>
-        <td>${{ item.price.toFixed(2) }}</td>
-        <td>
-          <div class="flex gap-3">
-            <p @click="decreaseQty(item.id)">-</p>
-            {{ item.qty }}
-            <p @click="increaseQty(item.id)">+</p>
-          </div>
-        </td>
-        <td>${{ (item.price * item.qty).toFixed(2) }}</td>
-        <td>
-          <div class="border h-12 w-12 flex items-center justify-center">
-            <Icon
-              icon="fluent-mdl2:cancel"
-              @click="removeFromCart(item.id)"
-              class="cursor-pointer hover:text-red-500"
-              width="24"
-              height="24"
-            />
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div>
+        <PageHeader>
+            <template #path>Home</template>
+            <template #page>Your Shopping Cart</template>
+        </PageHeader>
+    </div>
+    
+    <section v-if="cart.length > 0">
+      <table class="mx-auto my-8 w-[900px]">
+        <thead>
+          <tr class="uppercase">
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in cart" :key="item.id">
+            <td>
+              <div class="flex gap-2 items-center" >
+                <div class="border-r h-25 w-25 flex items-center justify-center">
+                  <img :src="item.image" alt="" class="max-w-full max-h-full object-contain" />
+                </div>
+                <span class="w-75 mx-auto text-[#33333]">{{ item.id }}. {{ item.title }}</span>
+              </div>
+            </td>
+            <td>${{ item.price.toFixed(2) }}</td>
+            <td>
+              <div class="flex gap-5 items-center justify-center border-b border-[#777777]" >
+                <p @click="decreaseQty(item.id)">-</p>
+                {{ item.qty }}
+                <p @click="increaseQty(item.id)">+</p>
+              </div>
+            </td>
+            <td>${{ (item.price * item.qty).toFixed(2) }}</td>
+            <td >
+              <div class="border h-12 w-12 mx-auto flex items-center justify-center text-[#777777] hover:text-[#C61932]">
+                <Icon
+                  icon="fluent-mdl2:cancel"
+                  @click="removeFromCart(item.id)"
+                  class="cursor-pointer"
+                  width="24"
+                  height="24"
+                />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="flex justify-end gap-4">
+        <MainButton>UPDATE CART</MainButton>
+        <MainButton >CONTINUE SHOPPING</MainButton>
+        <MainButton @click="clearCart">CLEAR CART</MainButton>
+      </div>
+  </section>
+  <EmptyCart v-else />
 </template>
 
 <style scoped>
@@ -86,6 +96,11 @@ th,
 td {
   border: 1px solid;
   padding: 0px 10px;
-  height: 90px;
+  height: 100px;
+  text-align: center;
+}
+td{
+    margin: 0px auto;
+    min-width: 100px;
 }
 </style>
