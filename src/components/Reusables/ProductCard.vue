@@ -13,7 +13,6 @@ const props = defineProps({
   },
 })
 
-// const wishlist = computed(() => wishlistStore.wishlist)
 const isInWishlist = computed(() =>
   wishlistStore.isInWishlist(props.product.id)
 )
