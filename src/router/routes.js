@@ -6,6 +6,7 @@ import HomeLayout from '@/layouts/homeLayout/HomeLayout.vue'
 import Account from '@/pages/Account.vue'
 import CartPage from '@/pages/CartPage.vue'
 import HomePage from '@/pages/HomePage.vue'
+import ProdDetails from '@/pages/ProdDetails.vue'
 import WishlistPage from '@/pages/WishlistPage.vue'
 
 export default [
@@ -15,6 +16,7 @@ export default [
     component: HomeLayout,
     children: [
       { path: '', name: 'HomePage', component: HomePage },
+      {path: "product", name: "ProductDetails", component: ProdDetails},
       { path: 'wishlist', name: 'WishlistPage', component: WishlistPage, meta: { requiresAuth: true },},
       { path: 'cart', name: 'CartPage', component: CartPage, meta: { requiresAuth: true } },
       { path: 'account', name: 'Account', component: Account, meta: { requiresAuth: true } },

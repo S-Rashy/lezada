@@ -13,12 +13,9 @@ const props = defineProps({
   },
 })
 
-const isInWishlist = computed(() =>
-  wishlistStore.isInWishlist(props.product.id)
-)
+const isInWishlist = computed(() => wishlistStore.isInWishlist(props.product.id))
 const toggleWishlist = (product) => {
   wishlistStore.toggleWishlist(product)
-
 }
 const addToCart = () => {
   cartStore.addToCart(props.product)
@@ -47,26 +44,40 @@ const addToCart = () => {
         >
           <div
             @click="toggleWishlist(product)"
-            :class="[
-              'cursor-pointer bg-white text-[#777] size-10 p-2',
-            ]"
+            :class="['tooltip cursor-pointer bg-white text-[#777] size-10 p-2']"
           >
-            <Icon 
-            :icon="isInWishlist ? 'iconoir:cancel' : 'solar:heart-outline'"
-             width="24" height="24" />
+            <Icon
+              :icon="isInWishlist ? 'iconoir:cancel' : 'solar:heart-outline'"
+              width="24"
+              height="24"
+            />
+            <span class="tooltiptext">
+              {{ isInWishlist ? 'Remove from wishlist' : 'Add to wishlist' }}
+            </span>
           </div>
-          <Icon
-            icon="ph:shuffle-light"
-            width="24"
-            height="24"
-            class="cursor-pointer bg-white text-[#777] size-10 p-2"
-          />
-          <Icon
-            icon="tdesign:search"
-            width="24"
-            height="24"
-            class="cursor-pointer bg-white text-[#777] size-10 p-2"
-          />
+
+          <div
+            class="tooltip cursor-pointer bg-white text-[#777] size-10 p-2 flex items-center justify-center"
+          >
+            <Icon
+              icon="ph:shuffle-light"
+              width="24"
+              height="24"
+            />
+            <span class="tooltiptext">Compare</span>
+          </div>
+
+          <div
+            class="tooltip cursor-pointer bg-white text-[#777] size-10 p-2 flex items-center justify-center"
+          >
+            <Icon
+              icon="tdesign:search"
+              width="24"
+              height="24"
+            />
+            <span class="tooltiptext">Quick view</span>
+          </div>
+
         </div>
       </aside>
     </div>
@@ -78,17 +89,53 @@ const addToCart = () => {
         {{ product.id }}. {{ product.name }}
       </h4>
       <button
-      @click="addToCart"
+        @click="addToCart"
         class="text-[#D3122A] absolute cursor-pointer translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500"
       >
         + Add to cart
       </button>
 
       <p class="font-semibold text-[#333333]">
-        ${{ (product.price - product.price * 0.1) }}
+        ${{ product.price - product.price * 0.1 }}
         <span class="line-through text-[#777] 2"> ${{ product.price }} </span>
       </p>
     </div>
   </main>
 </template>
-<style lang="scss" scoped></style>
+<style scoped>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgb(40, 39, 39);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  right: 110%;
+  font-size: 12px;
+}
+
+.tooltiptext::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgb(40, 39, 39);
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+</style>
