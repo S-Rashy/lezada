@@ -56,7 +56,7 @@ const clearCart = () => {
                 <span class="w-75 mx-auto text-[#33333]">{{ item.id }}. {{ item.title }}</span>
               </div>
             </td>
-            <td>${{ item.price.toFixed(2) }}</td>
+            <td>${{ item.price }}</td>
             <td>
               <div class="flex gap-5 items-center justify-center border-b border-[#777777]" >
                 <p @click="decreaseQty(item.id)">-</p>

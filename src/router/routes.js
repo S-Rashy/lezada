@@ -14,12 +14,14 @@ export default [
     component: HomeLayout,
     children: [
       { path: '', name: 'HomePage', component: HomePage },
-      { path: 'wishlist', name: 'WishlistPage', component: WishlistPage },
-      { path: 'cart', name: 'CartPage', component: CartPage },
+      { path: 'wishlist', name: 'WishlistPage', component: WishlistPage, meta: { requiresAuth: true }, },
+      { path: 'cart', name: 'CartPage', component: CartPage, meta: { requiresAuth: true },},
       {
         path: 'account',
         name: 'AuthPage',
         component: AuthLayout,
+        redirect: "/account/login",
+        meta: { requiresGuest: true },
         children: [
             { path: 'login', name: 'Login', component: Login },
             { path: 'register', name: 'SignUp', component: SignUp },

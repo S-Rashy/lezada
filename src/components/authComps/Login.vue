@@ -1,7 +1,24 @@
 <script setup>
+import { ref } from 'vue'
 import MainButton from '../Reusables/MainButton.vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router';
+
+
+const authStore = useAuthStore()
 const email = ref('')
 const password = ref('')
+const router = useRouter();
+
+const handleLogin = async () => {
+  try {
+    const response = await authStore.login(email.value, password.value)
+       router.push('/');
+    console.log('Login response:', response)
+  } catch (error) {
+    console.error('Login error:', error)
+  }
+}
 </script>
 
 <template>
@@ -9,7 +26,7 @@ const password = ref('')
     <h3 class="text-2xl text-[#333333]">Login</h3>
     <p class="text-[#666666]">Please login using your account details below.</p>
 
-    <form action="">
+    <form @submit.prevent="handleLogin">
       <input type="email" placeholder="Email" v-model="email" />
       <input type="password" placeholder="Password" v-model="password" />
       <div class="flex justify-between items-center my-4">

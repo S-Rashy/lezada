@@ -75,7 +75,7 @@ const addToCart = () => {
       <h4
         class="w-[300px] truncate cursor-pointer group-hover:-translate-y-6 group-hover:opacity-0 transition-all duration-500"
       >
-        {{ product.id }}. {{ product.title }}
+        {{ product.id }}. {{ product.name }}
       </h4>
       <button
       @click="addToCart"
@@ -85,8 +85,8 @@ const addToCart = () => {
       </button>
 
       <p class="font-semibold text-[#333333]">
-        ${{ (product.price - product.price * 0.1).toFixed(2) }}
-        <span class="line-through text-[#777] 2"> ${{ product.price.toFixed(2) }} </span>
+        ${{ (product.price - product.price * 0.1) }}
+        <span class="line-through text-[#777] 2"> ${{ product.price }} </span>
       </p>
     </div>
   </main>
