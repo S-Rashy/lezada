@@ -2,18 +2,17 @@
 import { ref } from 'vue'
 import MainButton from '../Reusables/MainButton.vue'
 import { useAuthStore } from '@/stores/auth'
-import { useRouter } from 'vue-router';
-
+import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()
 const email = ref('')
 const password = ref('')
-const router = useRouter();
+const router = useRouter()
 
 const handleLogin = async () => {
   try {
     const response = await authStore.login(email.value, password.value)
-       router.push('/');
+    router.push('/')
     console.log('Login response:', response)
   } catch (error) {
     console.error('Login error:', error)
@@ -31,13 +30,13 @@ const handleLogin = async () => {
       <input type="password" placeholder="Password" v-model="password" />
       <div class="flex justify-between items-center my-4">
         <MainButton type="submit" class="w-[150px]">SIGN IN</MainButton>
-        <RouterLink to="/account/reset-password">
+        <RouterLink to="/auth/reset-password">
           <p>Forgot your Password?</p>
         </RouterLink>
       </div>
     </form>
 
-    <RouterLink to="/account/register" class="w-35"><p>Create Account</p></RouterLink>
+    <RouterLink to="/auth/register" class="w-35"><p>Create Account</p></RouterLink>
   </main>
 </template>
 

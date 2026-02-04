@@ -1,5 +1,30 @@
 <script setup>
+import { reactive } from 'vue'
 import MainButton from '../Reusables/MainButton.vue'
+import { useAuthStore } from '@/stores/auth';
+const authStore = useAuthStore()
+import { useRouter } from 'vue-router';
+
+
+const router = useRouter();
+
+
+const form = reactive({
+    name: '',
+    email: '',
+    phone_number: '',
+    address: '',
+    password: ''
+});
+
+const register = async () => {
+    try {
+        await authStore.register({name: form.name, email: form.email, phone_number: form.phone_number, address: form.address, password: form.password});
+        router.push('/')
+    } catch (error) {
+        console.error(error);
+    }
+}
 </script>
 
 <template>
@@ -7,7 +32,7 @@ import MainButton from '../Reusables/MainButton.vue'
     <h3 class="text-2xl text-[#333333] text-center">Create Account</h3>
     <p class="text-[#666666] text-center">Please Register using account details below.</p>
 
-    <form action="">
+    <form @submit.prevent="register">
       <label for="firstname">First Name</label>
       <input id="firstname" type="text" placeholder="First Name" />
 

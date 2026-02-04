@@ -3,6 +3,7 @@ import ResetP from '@/components/authComps/ResetP.vue'
 import SignUp from '@/components/authComps/SignUp.vue'
 import AuthLayout from '@/layouts/authLayout/AuthLayout.vue'
 import HomeLayout from '@/layouts/homeLayout/HomeLayout.vue'
+import Account from '@/pages/Account.vue'
 import CartPage from '@/pages/CartPage.vue'
 import HomePage from '@/pages/HomePage.vue'
 import WishlistPage from '@/pages/WishlistPage.vue'
@@ -14,18 +15,19 @@ export default [
     component: HomeLayout,
     children: [
       { path: '', name: 'HomePage', component: HomePage },
-      { path: 'wishlist', name: 'WishlistPage', component: WishlistPage, meta: { requiresAuth: true }, },
-      { path: 'cart', name: 'CartPage', component: CartPage, meta: { requiresAuth: true },},
+      { path: 'wishlist', name: 'WishlistPage', component: WishlistPage, meta: { requiresAuth: true },},
+      { path: 'cart', name: 'CartPage', component: CartPage, meta: { requiresAuth: true } },
+      { path: 'account', name: 'Account', component: Account, meta: { requiresAuth: true } },
       {
-        path: 'account',
+        path: 'auth',
         name: 'AuthPage',
         component: AuthLayout,
-        redirect: "/account/login",
         meta: { requiresGuest: true },
+        redirect: "/auth/login",
         children: [
-            { path: 'login', name: 'Login', component: Login },
-            { path: 'register', name: 'SignUp', component: SignUp },
-            { path: 'reset-password', name: 'ResetPassword', component: ResetP },
+          { path: 'login', name: 'Login', component: Login },
+          { path: 'register', name: 'SignUp', component: SignUp },
+          { path: 'reset-password', name: 'ResetPassword', component: ResetP },
         ],
       },
     ],

@@ -49,13 +49,13 @@ const cartCount = computed(() => cartStore.cartCount)
       <div class="flex gap-10">
         <Icon icon="tdesign:search" width="24" height="24" />
 
-        <RouterLink to="/account/login">
+        <RouterLink to="/account">
           <Icon icon="ri:user-fill" width="24" height="24" />
         </RouterLink>
 
         <RouterLink to="/wishlist" class="relative">
           <p
-            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 right-0 z-20"
+            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-9 right-0 z-20"
             v-if="wishlistCount > 0"
           >
             {{ wishlistCount }}
@@ -70,7 +70,7 @@ const cartCount = computed(() => cartStore.cartCount)
 
         <RouterLink to="/cart" class="relative">
            <p
-            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 left-3 z-20"
+            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-9 left-3 z-20"
             v-if="cartCount > 0"
           >
             {{ cartCount }}

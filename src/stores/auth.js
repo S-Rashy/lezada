@@ -4,16 +4,18 @@ import api from '../helpers/axios'
 
 export const useAuthStore = defineStore('auth', () => {
   const token = ref(localStorage.getItem('authToken') || null)
-  const user = ref(JSON.parse(localStorage.getItem('user')) || null)
+//   const user = ref(JSON.parse(localStorage.getItem('user')) || null)
+    // const user = ref(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null)
+    const user = ref(null)
 
   const setToken = (authToken) => {
-    localStorage.setItem('authToken', authToken)
     token.value = authToken
+    localStorage.setItem('authToken', authToken)
   }
 
   const clearToken = () => {
-    localStorage.removeItem('authToken')
     token.value = null
+    localStorage.removeItem('authToken')
   }
 
   const setUser = (userData) => {
@@ -31,14 +33,30 @@ export const useAuthStore = defineStore('auth', () => {
   const login = async (email, password) => {
     try {
       const response = await api.post('/login', { email, password })
-      setToken(response.data.token)
-      setUser(response.data.user)
+      setToken(response.data.data.token)
+      setUser(response.data.data.user)
+      
       return response
     } catch (error) {
       throw error
     }
-}  
-  const getUser = computed(() => user.value);
+  }
 
-  return { token, user, isAuthenticated, login, setToken, clearToken, setUser, clearUser, getUser }
+  const register = async (data) => {
+    try {
+      const response = await api.post('/register', data)
+      setToken(response.data.data.token)
+      setUser(response.data.data.user)
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+  const logout = () => {
+    clearToken()
+    clearUser()
+  }
+  const getUser = computed(() => user.value)
+
+  return { token, user, isAuthenticated, login, setToken, clearToken, setUser, clearUser, getUser, register, logout }
 })
