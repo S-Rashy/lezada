@@ -1,5 +1,7 @@
 <script setup>
 import MainButton from '../Reusables/MainButton.vue'
+const email = ref('')
+const password = ref('')
 </script>
 
 <template>
@@ -8,8 +10,8 @@ import MainButton from '../Reusables/MainButton.vue'
     <p class="text-[#666666]">Please login using your account details below.</p>
 
     <form action="">
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Password" />
+      <input type="email" placeholder="Email" v-model="email" />
+      <input type="password" placeholder="Password" v-model="password" />
       <div class="flex justify-between items-center my-4">
         <MainButton type="submit" class="w-[150px]">SIGN IN</MainButton>
         <RouterLink to="/account/reset-password">
