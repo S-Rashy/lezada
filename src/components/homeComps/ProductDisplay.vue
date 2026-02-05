@@ -4,7 +4,7 @@ import { useProductStore } from '../../stores/product'
 import ProductCard from '../Reusables/ProductCard.vue'
 
 const productStore = useProductStore()
-const prodTab = ref(1)
+// const prodTab = ref(1)
 
 onMounted(() => {
   productStore.fetchProducts()
@@ -27,22 +27,22 @@ const displayedProducts = computed(() => {
     <div class="flex justify-center gap-10 my-12">
       <!-- @click="prodTab = 1" -->
       <!-- :class="prodTab === 1 ? 'text-[#333333]' : 'text-[#777]'" -->
-      <!-- class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300" -->
       <h2
+      class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300"
       >
         New
       </h2>
       <!-- @click="prodTab = 2" -->
       <!-- :class="prodTab === 2 ? 'text-[#333333]' : 'text-[#777]'" -->
-      <!-- class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300" -->
       <h2
+      class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300"
       >
         Popular
       </h2>
       <!-- @click="prodTab = 3" -->
       <!-- :class="prodTab === 3 ? 'text-[#333333]' : 'text-[#777]'" -->
-      <!-- class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300" -->
       <h2
+      class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300"
       >
         Sale
       </h2>

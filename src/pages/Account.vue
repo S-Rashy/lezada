@@ -12,6 +12,17 @@ const handleLogout = () => {
   router.push('/');
 };
 
+import LogoutModal from '@/Modals/LogoutModal.vue';
+import { ref } from 'vue';
+
+const showModal = ref(false);
+
+const closeModal = () => {
+  showModal.value = false;
+};
+const openModal = () => {
+  showModal.value = true;
+};
 </script>
 
 <template>
@@ -21,6 +32,8 @@ const handleLogout = () => {
         </PageHeader>
     <div class="py-10">
         account page
-        <MainButton @click="handleLogout">Log out</MainButton>
+        <MainButton @click="openModal">Log out</MainButton>
     </div>
+        <LogoutModal v-if="showModal" @close="closeModal" />
+
 </template>

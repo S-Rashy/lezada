@@ -12,6 +12,7 @@ const props = defineProps({
     required: true,
   },
 })
+const price = computed(() => Number(props.product.price))
 
 const isInWishlist = computed(() => wishlistStore.isInWishlist(props.product.id))
 const toggleWishlist = (product) => {
@@ -96,8 +97,8 @@ const addToCart = () => {
       </button>
 
       <p class="font-semibold text-[#333333]">
-        ${{ product.price - product.price * 0.1 }}
-        <span class="line-through text-[#777] 2"> ${{ product.price }} </span>
+        ${{ (price  * 0.85).toFixed(2) }}
+        <span class="line-through text-[#777] 2"> ${{ price.toFixed(2) }} </span>
       </p>
     </div>
   </main>

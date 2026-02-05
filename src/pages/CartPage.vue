@@ -53,15 +53,15 @@ const clearCart = () => {
                 <div class="border-r h-25 w-25 flex items-center justify-center">
                   <img :src="item.image" alt="" class="max-w-full max-h-full object-contain" />
                 </div>
-                <span class="w-75 mx-auto text-[#33333]">{{ item.id }}. {{ item.title }}</span>
+                <span class="w-75 mx-auto text-[#33333]">{{ item.id }}. {{ item.name }}</span>
               </div>
             </td>
             <td>${{ item.price }}</td>
             <td>
               <div class="flex gap-5 items-center justify-center border-b border-[#777777]" >
-                <p @click="decreaseQty(item.id)">-</p>
+                <p @click="decreaseQty(item.id)" class="cursor-pointer hover:font-medium hover:scale-120">-</p>
                 {{ item.qty }}
-                <p @click="increaseQty(item.id)">+</p>
+                <p @click="increaseQty(item.id)" class="cursor-pointer hover:font-medium hover:scale-120">+</p>
               </div>
             </td>
             <td>${{ (item.price * item.qty).toFixed(2) }}</td>
@@ -70,7 +70,7 @@ const clearCart = () => {
                 <Icon
                   icon="fluent-mdl2:cancel"
                   @click="removeFromCart(item.id)"
-                  class="cursor-pointer"
+                  class="cursor-pointer hover:rotate-90 hover:scale-110 transition-all duration-200 ease-in-out"
                   width="24"
                   height="24"
                 />
