@@ -30,7 +30,7 @@ const openModal = () => {
             <template #path>Home</template>
             <template #page>Account</template>
         </PageHeader>
-    <div class="py-10">
+    <div class="p-10">
         account page
         <MainButton @click="openModal">Log out</MainButton>
     </div>

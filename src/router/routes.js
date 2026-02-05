@@ -5,6 +5,7 @@ import AuthLayout from '@/layouts/authLayout/AuthLayout.vue'
 import HomeLayout from '@/layouts/homeLayout/HomeLayout.vue'
 import Account from '@/pages/Account.vue'
 import CartPage from '@/pages/CartPage.vue'
+import Checkout from '@/pages/Checkout.vue'
 import HomePage from '@/pages/HomePage.vue'
 import ProdDetails from '@/pages/ProdDetails.vue'
 import WishlistPage from '@/pages/WishlistPage.vue'
@@ -19,6 +20,7 @@ export default [
       {path: "product", name: "ProductDetails", component: ProdDetails},
       { path: 'wishlist', name: 'WishlistPage', component: WishlistPage, meta: { requiresAuth: true },},
       { path: 'cart', name: 'CartPage', component: CartPage, meta: { requiresAuth: true } },
+      { path: 'checkout', name: 'CheckoutPage', component: Checkout, meta: { requiresAuth: true } },
       { path: 'account', name: 'Account', component: Account, meta: { requiresAuth: true } },
       {
         path: 'auth',
