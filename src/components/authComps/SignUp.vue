@@ -1,15 +1,15 @@
 <script setup>
 import { reactive } from 'vue'
-import MainButton from '../Reusables/MainButton.vue'
 import { useAuthStore } from '@/stores/auth'
-const authStore = useAuthStore()
 import { useRouter } from 'vue-router'
+import MainButton from '../Reusables/MainButton.vue'
+const authStore = useAuthStore()
 
 const router = useRouter()
 
 const form = reactive({
-  name: '',
-  // lastname: '',
+  firstname: '',
+  lastname: '',
   email: '',
   phone_number: '',
   address: '',
@@ -18,9 +18,13 @@ const form = reactive({
 
 const register = async () => {
   try {
+    const name = `${form.firstname} ${form.lastname}`.trim()
+    console.log('FULL NAME:', name)
+    console.log('FIRST:', form.firstname)
+    console.log('LAST:', form.lastname)
+
     await authStore.register({
-      name: form.name,
-      // lastname: form.lastname,
+      name: name,
       email: form.email,
       phone_number: form.phone_number,
       address: form.address,
@@ -40,7 +44,7 @@ const register = async () => {
 
     <form @submit.prevent="register">
       <label for="firstname">First Name</label>
-      <input id="firstname" type="text" placeholder="First Name" v-model="form.name" />
+      <input id="firstname" type="text" placeholder="First Name" v-model="form.firstname" />
 
       <label for="lastname">Last Name</label>
       <input id="lastname" type="text" placeholder="Last Name" v-model="form.lastname" />

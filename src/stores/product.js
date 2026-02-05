@@ -15,7 +15,7 @@ export const useProductStore = defineStore('product', () => {
 
     try{
       const response = await api.get('/products');
-      products.value = response.data.data.data;
+      products.value = response.data.data;
       console.log(products.value);
       
     }

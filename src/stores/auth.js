@@ -47,6 +47,8 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await api.post('/register', data)
       setToken(response.data.data.token)
       setUser(response.data.data.user)
+      console.log(response.data.message);
+      
       return response
     } catch (error) {
       console.log(error.response.data.message)
