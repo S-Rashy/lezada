@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mt-30">
 checkout page
     </div>
 </template>

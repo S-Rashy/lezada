@@ -1,29 +1,35 @@
 <script setup>
 import { reactive } from 'vue'
 import MainButton from '../Reusables/MainButton.vue'
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from '@/stores/auth'
 const authStore = useAuthStore()
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
-
-const router = useRouter();
-
+const router = useRouter()
 
 const form = reactive({
-    name: '',
-    email: '',
-    phone_number: '',
-    address: '',
-    password: ''
-});
+  name: '',
+  // lastname: '',
+  email: '',
+  phone_number: '',
+  address: '',
+  password: '',
+})
 
 const register = async () => {
-    try {
-        await authStore.register({name: form.name, email: form.email, phone_number: form.phone_number, address: form.address, password: form.password});
-        router.push('/')
-    } catch (error) {
-        console.error(error);
-    }
+  try {
+    await authStore.register({
+      name: form.name,
+      // lastname: form.lastname,
+      email: form.email,
+      phone_number: form.phone_number,
+      address: form.address,
+      password: form.password,
+    })
+    router.push('/')
+  } catch (error) {
+    console.error(error)
+  }
 }
 </script>
 
@@ -34,15 +40,15 @@ const register = async () => {
 
     <form @submit.prevent="register">
       <label for="firstname">First Name</label>
-      <input id="firstname" type="text" placeholder="First Name" />
+      <input id="firstname" type="text" placeholder="First Name" v-model="form.name" />
 
       <label for="lastname">Last Name</label>
-      <input id="lastname" type="text" placeholder="Last Name" />
+      <input id="lastname" type="text" placeholder="Last Name" v-model="form.lastname" />
 
       <label for="email">Email</label>
-      <input id="email" type="email" placeholder="Email" />
+      <input id="email" type="email" placeholder="Email" v-model="form.email" />
       <label for="password">Password</label>
-      <input id="password" type="password" placeholder="Password" />
+      <input id="password" type="password" placeholder="Password" v-model="form.password" />
 
       <div class="flex justify-between items-center my-4">
         <MainButton type="submit" class="w-[150px]">CREATE</MainButton>

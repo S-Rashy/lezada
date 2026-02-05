@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import MainButton from '../Reusables/MainButton.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import { Icon } from '@iconify/vue'
 
 const authStore = useAuthStore()
 const email = ref('')
@@ -18,6 +19,7 @@ const handleLogin = async () => {
     console.error('Login error:', error)
   }
 }
+const showPassword = ref(false)
 </script>
 
 <template>
@@ -27,7 +29,15 @@ const handleLogin = async () => {
 
     <form @submit.prevent="handleLogin">
       <input type="email" placeholder="Email" v-model="email" />
-      <input type="password" placeholder="Password" v-model="password" />
+      <div class="flex items-center justify-between w-full"
+>
+        <input
+          :type="showPassword ? 'text' : 'password'"
+          placeholder="Password"
+          v-model="password"
+        />
+        <Icon icon="mdi:eye-outline" @click="showPassword = !showPassword" />
+      </div>
       <div class="flex justify-between items-center my-4">
         <MainButton type="submit" class="w-[150px]">SIGN IN</MainButton>
         <RouterLink to="/auth/reset-password">

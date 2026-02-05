@@ -4,9 +4,9 @@ import api from '../helpers/axios'
 
 export const useAuthStore = defineStore('auth', () => {
   const token = ref(localStorage.getItem('authToken') || null)
-//   const user = ref(JSON.parse(localStorage.getItem('user')) || null)
-    // const user = ref(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null)
-    const user = ref(null)
+  //   const user = ref(JSON.parse(localStorage.getItem('user')) || null)
+  // const user = ref(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null)
+  const user = ref(null)
 
   const setToken = (authToken) => {
     token.value = authToken
@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await api.post('/login', { email, password })
       setToken(response.data.data.token)
       setUser(response.data.data.user)
-      
+
       return response
     } catch (error) {
       throw error
@@ -49,7 +49,7 @@ export const useAuthStore = defineStore('auth', () => {
       setUser(response.data.data.user)
       return response
     } catch (error) {
-      throw error
+      console.log(error.response.data.message)
     }
   }
   const logout = () => {
@@ -58,5 +58,17 @@ export const useAuthStore = defineStore('auth', () => {
   }
   const getUser = computed(() => user.value)
 
-  return { token, user, isAuthenticated, login, setToken, clearToken, setUser, clearUser, getUser, register, logout }
+  return {
+    token,
+    user,
+    isAuthenticated,
+    login,
+    setToken,
+    clearToken,
+    setUser,
+    clearUser,
+    getUser,
+    register,
+    logout,
+  }
 })
