@@ -29,8 +29,7 @@ const showPassword = ref(false)
 
     <form @submit.prevent="handleLogin">
       <input type="email" placeholder="Email" v-model="email" />
-      <div class="flex items-center justify-between w-full"
->
+      <div class="flex items-center justify-between w-full">
         <input
           :type="showPassword ? 'text' : 'password'"
           placeholder="Password"

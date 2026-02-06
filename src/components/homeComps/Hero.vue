@@ -105,7 +105,6 @@ const slides = [
   color: #d1d5db;
   transition: all 0.4s ease-in-out;
   z-index: 10;
- 
 }
 
 :deep(.carousel__prev) {
