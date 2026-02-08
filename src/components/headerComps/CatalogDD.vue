@@ -65,7 +65,7 @@ const menuCategories = [
                       'text-[10px] text-white px-2 py-1 font-bold uppercase shadow-md',
                     ]"
                   >
-                    {{ badge }}
+                    <!-- {{ badge }} -->
                   </span>
                   <div
                     class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[4px] border-t-current"
