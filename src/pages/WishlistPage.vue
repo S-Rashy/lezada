@@ -1,11 +1,17 @@
 <script setup>
 import { useWishlistStore } from '@/stores/wishlist'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import PageHeader from '@/components/Reusables/PageHeader.vue'
 import ProductCard from '@/components/Reusables/ProductCard.vue'
 
 const wishlistStore = useWishlistStore()
-
+  onMounted(async () => {
+  try {
+    await wishlistStore.fetchWishlist()
+  } catch (error) {
+    console.error('Failed to fetch wishlist:', error)
+  } 
+})
 const wishlist = computed(() => wishlistStore.wishlist)
 </script>
 
@@ -19,7 +25,7 @@ const wishlist = computed(() => wishlistStore.wishlist)
     </div>
 
     <div v-if="wishlist.length > 0" class="grid grid-cols-3 gap-8 p-6">
-      <ProductCard v-for="(product, index) in wishlist" :key="index" :product="product" />
+      <ProductCard v-for="product in wishlist" :key="product.id" :product="product" />
     </div>
 
     <div v-if="wishlist.length <= 0" class="space-y-4 py-20 px-8">

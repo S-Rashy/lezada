@@ -6,6 +6,7 @@ import { useCartStore } from '@/stores/cart'
 
 const wishlistStore = useWishlistStore()
 const cartStore = useCartStore()
+
 const props = defineProps({
   product: {
     type: Object,
@@ -15,8 +16,8 @@ const props = defineProps({
 const price = computed(() => Number(props.product.price))
 
 const isInWishlist = computed(() => wishlistStore.isInWishlist(props.product.id))
-const toggleWishlist = (product) => {
-  wishlistStore.toggleWishlist(product)
+const toggleWishlist = () => {
+  wishlistStore.toggleWishlist(props.product)
 }
 const addToCart = () => {
   cartStore.addToCart(props.product)
@@ -44,7 +45,7 @@ const addToCart = () => {
           class="flex flex-col gap-3 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300"
         >
           <div
-            @click="toggleWishlist(product)"
+            @click="toggleWishlist"
             :class="['tooltip cursor-pointer bg-white text-[#777] size-10 p-2']"
           >
             <Icon
@@ -60,25 +61,16 @@ const addToCart = () => {
           <div
             class="tooltip cursor-pointer bg-white text-[#777] size-10 p-2 flex items-center justify-center"
           >
-            <Icon
-              icon="ph:shuffle-light"
-              width="24"
-              height="24"
-            />
+            <Icon icon="ph:shuffle-light" width="24" height="24" />
             <span class="tooltiptext">Compare</span>
           </div>
 
           <div
             class="tooltip cursor-pointer bg-white text-[#777] size-10 p-2 flex items-center justify-center"
           >
-            <Icon
-              icon="tdesign:search"
-              width="24"
-              height="24"
-            />
+            <Icon icon="tdesign:search" width="24" height="24" />
             <span class="tooltiptext">Quick view</span>
           </div>
-
         </div>
       </aside>
     </div>
@@ -97,7 +89,7 @@ const addToCart = () => {
       </button>
 
       <p class="font-semibold text-[#333333]">
-        ${{ (price  * 0.85).toFixed(2) }}
+        ${{ (price * 0.85).toFixed(2) }}
         <span class="line-through text-[#777] 2"> ${{ price.toFixed(2) }} </span>
       </p>
     </div>
