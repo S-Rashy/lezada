@@ -48,13 +48,13 @@ export const useCartStore = defineStore('cart', () => {
   //     removeFromCart(id)
   //   }
   // }
-  // const removeFromCart = (id) => {
-  //   cart.value = cart.value.filter((item) => item.id !== id)
-  // }
+  const removeFromCart = (id) => {
+    cart.value = cart.value.filter((item) => item.id !== id)
+  }
 
-  // const clearCart = () => {
-  //   cart.value = []
-  // }
+  const clearCart = () => {
+    cart.value = []
+  }
 
 
   const getCartItems = computed(() => cart.value)
@@ -66,8 +66,8 @@ export const useCartStore = defineStore('cart', () => {
     updateCart,
     // increaseQty,
     // decreaseQty,
-    // removeFromCart,
-    // clearCart,
+    removeFromCart,
+    clearCart,
     getCartItems
   }
 })

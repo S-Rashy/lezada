@@ -28,9 +28,9 @@ const decreaseQty = (item) => {
 //   cartStore.removeFromCart(id)
 // }
 
-// const clearCart = () => {
-//   cartStore.clearCart()
-// }
+const clearCart = () => {
+  cartStore.clearCart()
+}
 </script>
 
 <template>
