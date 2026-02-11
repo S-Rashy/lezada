@@ -1,3 +1,4 @@
+import api from '@/helpers/axios'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 export const useCartStore = defineStore('cart', () => {
@@ -6,51 +7,67 @@ export const useCartStore = defineStore('cart', () => {
   const cartCount = computed(() => cart.value.length)
 
   const cartTotal = computed(() => {
-    return cart.value.reduce((total, item) => total + item.price * item.qty, 0)
+    return cart.value.reduce((total, item) => total + item.price * item.quantity, 0)
   })
 
-  const addToCart = (product) => {
-    const existingItem = cart.value.find((item) => item.id === product.id)
-
-    if (existingItem) {
-      existingItem.qty++
-    } else {
-      cart.value.push({ ...product, qty: 1 })
+  const fetchCart = async () => {
+    try {
+      const response = await api.get('/cart')
+      cart.value = response.data.data
+    } catch (error) {
+      console.error('Error fetching cart:', error)
     }
   }
 
-  const increaseQty = (id) => {
-    const existingItem = cart.value.find((item) => item.id === id)
-
-    if (existingItem) {
-      existingItem.qty++
-    }
+  const addToCart = async (payload) => {
+    const response = await api.post('/cart/add', payload)
+    fetchCart()
+   
   }
 
-  const decreaseQty = (id) => {
-    const existingItem = cart.value.find((item) => item.id === id)
+  const updateCart = async (payload) => {
+    const response = await api.put(`/cart/${payload.id}`, payload)
+    fetchCart()
+    console.log(response);
+    
+  }
+  // const increaseQty = (id) => {
+  //   const existingItem = cart.value.find((item) => item.id === id)
 
-    if (existingItem && existingItem.qty > 1) {
-      existingItem.qty--
-    } else {
-      removeFromCart(id)
-    }
-  }
-  const removeFromCart = (id) => {
-    cart.value = cart.value.filter((item) => item.id !== id)
-  }
+  //   if (existingItem) {
+  //     existingItem.qty++
+  //   }
+  // }
 
-  const clearCart = () => {
-    cart.value = []
-  }
+  // const decreaseQty = (id) => {
+  //   const existingItem = cart.value.find((item) => item.id === id)
+
+  //   if (existingItem && existingItem.qty > 1) {
+  //     existingItem.qty--
+  //   } else {
+  //     removeFromCart(id)
+  //   }
+  // }
+  // const removeFromCart = (id) => {
+  //   cart.value = cart.value.filter((item) => item.id !== id)
+  // }
+
+  // const clearCart = () => {
+  //   cart.value = []
+  // }
+
+
+  const getCartItems = computed(() => cart.value)
   return {
-    cart,
     cartCount,
     cartTotal,
     addToCart,
-    increaseQty,
-    decreaseQty,
-    removeFromCart,
-    clearCart,
+    fetchCart,
+    updateCart,
+    // increaseQty,
+    // decreaseQty,
+    // removeFromCart,
+    // clearCart,
+    getCartItems
   }
 })

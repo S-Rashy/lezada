@@ -20,7 +20,7 @@ const toggleWishlist = () => {
   wishlistStore.toggleWishlist(props.product)
 }
 const addToCart = () => {
-  cartStore.addToCart(props.product)
+  cartStore.addToCart({product_id: props.product.id, quantity: 1})
 }
 </script>
 

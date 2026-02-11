@@ -91,7 +91,7 @@ const slides = [
   overflow: visible;
 } */
 :deep(.carousel__slide) {
-  padding: 0 20px; /* Adjust this to increase/decrease the gap */
+  padding: 0 20px; 
 }
 :deep(.carousel__prev),
 :deep(.carousel__next) {

@@ -21,11 +21,10 @@ export const useWishlistStore = defineStore('wishlist', () => {
   }
 
   const addToWishlist = async (product) => {
-    if (isInWishlist(product.id)) return
     wishlist.value.push(product)
 
     try {
-      await api.post('/wishlist', { product_id: product.id })
+      await api.post('/wishlist/add', { product_id: product.id })
     } catch (error) {
       wishlist.value = wishlist.value.filter((item) => item.id !== product.id)
       console.error('Error adding to wishlist:', error)

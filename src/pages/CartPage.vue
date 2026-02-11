@@ -1,7 +1,7 @@
 <script setup>
 import { useCartStore } from '@/stores/cart'
 import PageHeader from '@/components/Reusables/PageHeader.vue'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { Icon } from '@iconify/vue'
 import MainButton from '@/components/Reusables/MainButton.vue'
 import EmptyCart from './EmptyCart.vue'
@@ -9,24 +9,28 @@ import EmptyCart from './EmptyCart.vue'
 const terms = ref(false)
 
 const cartStore = useCartStore()
-const cart = computed(() => cartStore.cart)
+const cart = computed(() => cartStore.getCartItems)
 const cartTotal = computed(() => cartStore.cartTotal)
 
-const increaseQty = (id) => {
-  cartStore.increaseQty(id)
+onMounted(async () => {
+  await cartStore.fetchCart()
+})
+
+const increaseQty = (item) => {
+  cartStore.updateCart({ id: item.id, type: 'increment' })
 }
 
-const decreaseQty = (id) => {
-  cartStore.decreaseQty(id)
+const decreaseQty = (item) => {
+  cartStore.updateCart({ id: item.id, type: 'decrement' })
 }
 
-const removeFromCart = (id) => {
-  cartStore.removeFromCart(id)
-}
+// const removeFromCart = (id) => {
+//   cartStore.removeFromCart(id)
+// }
 
-const clearCart = () => {
-  cartStore.clearCart()
-}
+// const clearCart = () => {
+//   cartStore.clearCart()
+// }
 </script>
 
 <template>
@@ -63,21 +67,21 @@ const clearCart = () => {
             <td>
               <div class="flex gap-5 items-center justify-center border-b border-[#777777]">
                 <p
-                  @click="decreaseQty(item.id)"
+                  @click="decreaseQty({ id: item.id, type: 'decrement' })"
                   class="cursor-pointer hover:font-medium hover:scale-120"
                 >
                   -
                 </p>
-                {{ item.qty }}
+                {{ item.quantity }}
                 <p
-                  @click="increaseQty(item.id)"
+                  @click="increaseQty({ id: item.id, type: 'increment' })"
                   class="cursor-pointer hover:font-medium hover:scale-120"
                 >
                   +
                 </p>
               </div>
             </td>
-            <td>${{ (item.price * item.qty).toFixed(2) }}</td>
+            <td>${{ (item.price * item.quantity).toFixed(2) }}</td>
             <td>
               <div
                 class="border h-12 w-12 mx-auto flex items-center justify-center text-[#777777] hover:text-[#C61932] hover:border-2 group"
