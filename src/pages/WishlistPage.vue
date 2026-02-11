@@ -5,13 +5,13 @@ import PageHeader from '@/components/Reusables/PageHeader.vue'
 import ProductCard from '@/components/Reusables/ProductCard.vue'
 
 const wishlistStore = useWishlistStore()
-  onMounted(async () => {
-  try {
-    await wishlistStore.fetchWishlist()
-  } catch (error) {
-    console.error('Failed to fetch wishlist:', error)
-  } 
-})
+// onMounted(async () => {
+//   try {
+//     await wishlistStore.fetchWishlist()
+//   } catch (error) {
+//     console.error('Failed to fetch wishlist:', error)
+//   }
+// })
 const wishlist = computed(() => wishlistStore.wishlist)
 </script>
 
