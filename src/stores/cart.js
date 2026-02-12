@@ -48,9 +48,15 @@ export const useCartStore = defineStore('cart', () => {
   //     removeFromCart(id)
   //   }
   // }
-  const removeFromCart = (id) => {
-    cart.value = cart.value.filter((item) => item.id !== id)
+ const removeFromCart = async (id) => {
+  try {
+    await api.delete(`/cart/${id}`)
+    await fetchCart()
+  } catch (error) {
+    console.error('Error removing cart item:', error)
   }
+}
+
 
   const clearCart = () => {
     cart.value = []
