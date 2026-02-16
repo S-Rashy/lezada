@@ -22,14 +22,12 @@ export const useCartStore = defineStore('cart', () => {
   const addToCart = async (payload) => {
     const response = await api.post('/cart/add', payload)
     fetchCart()
-   
   }
 
   const updateCart = async (payload) => {
     const response = await api.put(`/cart/${payload.id}`, payload)
     fetchCart()
-    console.log(response);
-    
+    console.log(response)
   }
   // const increaseQty = (id) => {
   //   const existingItem = cart.value.find((item) => item.id === id)
@@ -48,20 +46,18 @@ export const useCartStore = defineStore('cart', () => {
   //     removeFromCart(id)
   //   }
   // }
- const removeFromCart = async (id) => {
-  try {
-    await api.delete(`/cart/${id}`)
-    await fetchCart()
-  } catch (error) {
-    console.error('Error removing cart item:', error)
-  }
-}
-
-
-  const clearCart = () => {
-    cart.value = []
+  const removeFromCart = async (id) => {
+    try {
+      await api.delete(`/cart/${id}`)
+      await fetchCart()
+    } catch (error) {
+      console.error('Error removing cart item:', error)
+    }
   }
 
+  const clearCart = async () => {
+    const response = await api.delete('/cart/all')
+  }
 
   const getCartItems = computed(() => cart.value)
   return {
@@ -72,6 +68,6 @@ export const useCartStore = defineStore('cart', () => {
     updateCart,
     removeFromCart,
     clearCart,
-    getCartItems
+    getCartItems,
   }
 })
