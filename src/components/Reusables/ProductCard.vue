@@ -3,6 +3,13 @@ import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useWishlistStore } from '../../stores/wishlist'
 import { useCartStore } from '@/stores/cart'
+import { toast } from 'vue-sonner'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+const goToProduct = () => {
+  router.push(`/product/${props.product.id}`)
+}
 
 const wishlistStore = useWishlistStore()
 const cartStore = useCartStore()
@@ -17,17 +24,23 @@ const price = computed(() => Number(props.product.price))
 
 const isInWishlist = computed(() => wishlistStore.isInWishlist(props.product.id))
 const toggleWishlist = () => {
+  toast(
+    isInWishlist.value
+    ? `${props.product.name} removed from wishlist`
+    : `${props.product.name} added to wishlist`
+  )
   wishlistStore.toggleWishlist(props.product)
 }
 const addToCart = () => {
+   toast.success(`${props.product.name} added to cart `)
   cartStore.addToCart({ product_id: props.product.id, quantity: 1 })
 }
 </script>
 
 <template>
   <main class="group space-y-5">
-    <RouterLink
-      :to="`/product/${product.id}`"
+    <div
+      @click="goToProduct"
       class="h-[450px] w-[350px] bg-[#F5F5F5] rounded-[4px] pt-4 flex flex-col justify-between relative overflow-hidden group"
     >
       <div class="absolute inset-0 flex justify-center items-center p-4">
@@ -46,7 +59,7 @@ const addToCart = () => {
           class="flex flex-col gap-3 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300"
         >
           <div
-            @click="toggleWishlist"
+            @click.stop="toggleWishlist"
             :class="['tooltip cursor-pointer bg-white text-[#777] size-10 p-2']"
           >
             <Icon
@@ -74,7 +87,7 @@ const addToCart = () => {
           </div>
         </div>
       </aside>
-    </RouterLink>
+    </div>
 
     <div class="my-4 flex flex-col gap-4 text-[#333333]">
       <h4

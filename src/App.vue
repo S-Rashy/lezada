@@ -3,6 +3,8 @@ import { onMounted } from 'vue'
 import { useWishlistStore } from '@/stores/wishlist'
 import { useCartStore } from '@/stores/cart'
 import { useProductStore } from './stores/product'
+import { Toaster } from 'vue-sonner'
+
 
 const wishlistStore = useWishlistStore()
 const cartStore = useCartStore()
@@ -21,6 +23,7 @@ onMounted(async () => {
 
 
 <template>
+  <Toaster position="top-center" :offset="80"/>
 
   <RouterView/>
   
