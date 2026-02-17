@@ -38,7 +38,6 @@ const addToCart = () => {
 const increase = () => qty.value++
 const decrease = () => qty.value > 1 && qty.value--
 
-
 const gallery = computed(() => {
   if (!product.value) return []
   return [
@@ -55,10 +54,7 @@ const gallery = computed(() => {
     <template #page>{{ product?.name || 'Product Details' }}</template>
   </PageHeader>
 
-  <main
-    v-if="product"
-    class="px-16 py-12 grid grid-cols-2 gap-16"
-  >
+  <main v-if="product" class="px-16 py-12 grid grid-cols-2 gap-16">
     <section>
       <div class="bg-[#F5F5F5] p-10 relative">
         <img
@@ -67,11 +63,7 @@ const gallery = computed(() => {
           :style="gallery[activeIndex]?.transform"
         />
 
-        <Icon
-          icon="mdi:fullscreen"
-          width="22"
-          class="absolute top-4 right-4 text-[#666]"
-        />
+        <Icon icon="mdi:fullscreen" width="22" class="absolute top-4 right-4 text-[#666]" />
       </div>
 
       <div class="flex gap-4 mt-6">
@@ -91,18 +83,14 @@ const gallery = computed(() => {
     </section>
 
     <section class="space-y-6">
-      <h1 class="text-2xl font-medium text-[#222]">
-        {{ product.id }}. {{ product.name }}
-      </h1>
+      <h1 class="text-2xl font-medium text-[#222]">{{ product.id }}. {{ product.name }}</h1>
 
       <p class="text-sm text-[#D3122A]">
         Availability:
         <span class="font-medium">2 In Stock</span>
       </p>
 
-      <p class="text-xl font-semibold">
-        ${{ price.toFixed(2) }}
-      </p>
+      <p class="text-xl font-semibold">${{ price.toFixed(2) }}</p>
 
       <div class="flex items-center gap-6 text-sm text-[#555]">
         <span class="flex items-center gap-1">
@@ -117,22 +105,19 @@ const gallery = computed(() => {
 
       <div class="flex items-center gap-4">
         <span>Quantity:</span>
-        <div class="flex items-center border px-4 py-2 gap-6">
-          <button @click="decrease">−</button>
+        <div class="flex gap-8 items-center justify-center border-b-2 border-[#777777]">
+          <button @click="decrease" class="cursor-pointer hover:font-semibold hover:scale-120">−</button>
           <span>{{ qty }}</span>
-          <button @click="increase">+</button>
+          <button @click="increase" class="cursor-pointer hover:font-semibold hover:scale-120">+</button>
         </div>
       </div>
 
       <div class="flex gap-4">
-        <MainButton
-          @click="addToCart"
-          class="bg-[#222] text-white px-10 py-3 text-sm"
-        >
+        <MainButton @click="addToCart" class="bg-[#222] text-white px-10 py-3 text-sm">
           ADD TO CART
         </MainButton>
 
-        <button class="border p-3">
+        <button class="border p-3 h-12 hover:bg-[#333333] cursor-pointer hover:text-white bg-transparent text-black hover:font-semibold transition-colors duration-300 ease-in-out">
           <Icon icon="mdi:close" width="18" />
         </button>
       </div>
@@ -142,17 +127,15 @@ const gallery = computed(() => {
         <span>I agree with the terms and conditions</span>
       </div>
 
-      <button class="w-full bg-[#F5E6A5] py-3 text-sm">
-        BUY IT NOW
-      </button>
+      <button class="w-full bg-[#F5E6A5] py-3 text-sm">BUY IT NOW</button>
 
       <div>
         <p class="text-sm mb-2">Guaranteed safe checkout</p>
-        <div class="flex gap-3">
+        <div class="flex gap-3 items-center">
           <Icon icon="logos:visa" width="40" />
           <Icon icon="logos:mastercard" width="40" />
           <Icon icon="logos:maestro" width="40" />
-          <Icon icon="logos:paypal" width="40" />
+          <Icon icon="logos:paypal" width="40" height="40" />
         </div>
       </div>
 
@@ -166,16 +149,21 @@ const gallery = computed(() => {
 
       <div class="flex items-center gap-4">
         <span>Share:</span>
-        <Icon icon="mdi:facebook" class="text-blue-600" />
-        <Icon icon="mdi:twitter" class="text-sky-500" />
-        <Icon icon="mdi:pinterest" class="text-red-600" />
+        <Icon icon="mdi:facebook" width="45" class=" cursor-pointer text-blue-600 hover:text-blue-800" />
+        <Icon icon="mdi:twitter" width="45" class=" cursor-pointer text-sky-500 hover:text-sky-700" />
+        <Icon icon="mdi:pinterest" width="45" class=" cursor-pointer text-red-600 hover:text-red-800" />
       </div>
+    </section>
+
+    <section class="col-span-2">
+        <h2 class="text-2xl font-medium text-[#222] mb-6 mx-auto max-w-3xl text-center">Description</h2>
+        <p class=" text-[#555] leading-7">
+            {{ product.description }}
+        </p>
     </section>
   </main>
 
-  <p v-else class="text-center py-20">
-    Loading product…
-  </p>
+  <p v-else class="text-center py-20">Loading product…</p>
 </template>
 
 <style scoped>
