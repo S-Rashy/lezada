@@ -20,13 +20,14 @@ const toggleWishlist = () => {
   wishlistStore.toggleWishlist(props.product)
 }
 const addToCart = () => {
-  cartStore.addToCart({product_id: props.product.id, quantity: 1})
+  cartStore.addToCart({ product_id: props.product.id, quantity: 1 })
 }
 </script>
 
 <template>
   <main class="group space-y-5">
-    <div
+    <RouterLink
+      :to="`/product/${product.id}`"
       class="h-[450px] w-[350px] bg-[#F5F5F5] rounded-[4px] pt-4 flex flex-col justify-between relative overflow-hidden group"
     >
       <div class="absolute inset-0 flex justify-center items-center p-4">
@@ -73,7 +74,7 @@ const addToCart = () => {
           </div>
         </div>
       </aside>
-    </div>
+    </RouterLink>
 
     <div class="my-4 flex flex-col gap-4 text-[#333333]">
       <h4

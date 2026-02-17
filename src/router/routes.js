@@ -17,7 +17,7 @@ export default [
     component: HomeLayout,
     children: [
       { path: '', name: 'HomePage', component: HomePage },
-      {path: "product", name: "ProductDetails", component: ProdDetails},
+      { path: "product/:id", name: "ProductDetails", component: ProdDetails},
       { path: 'wishlist', name: 'WishlistPage', component: WishlistPage, meta: { requiresAuth: true },},
       { path: 'cart', name: 'CartPage', component: CartPage, meta: { requiresAuth: true } },
       { path: 'checkout', name: 'CheckoutPage', component: Checkout, meta: { requiresAuth: true } },

@@ -55,9 +55,18 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  const clearCart = async () => {
-    const response = await api.delete('/cart/all')
+ const clearCart = async () => {
+  const previousCart = [...cart.value] 
+  cart.value = [] 
+
+  try {
+    await api.delete('/cart/all')
+  } catch (error) {
+    cart.value = previousCart  
+    console.error('Error clearing cart:', error)
+    throw error
   }
+}
 
   const getCartItems = computed(() => cart.value)
   return {
