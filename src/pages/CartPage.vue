@@ -146,10 +146,10 @@ const openModal = () => {
             <th>SUBTOTAL</th>
             <td>${{ cartTotal.toFixed(2) }}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th>SHIPPING</th>
             <td>$10.00</td>
-          </tr>
+          </tr> -->
           <tr>
             <th>TOTAL</th>
             <td>${{ (cartTotal + 10).toFixed(2) }}</td>

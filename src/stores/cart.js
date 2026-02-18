@@ -54,9 +54,25 @@ export const useCartStore = defineStore('cart', () => {
 
   const getCartItems = computed(() => cart.value)
 
+  const shippingAddress = ref(null)
+  const billingAddress = ref(null)
+  const setShippingAddress = (address) => {
+    shippingAddress.value = address
+  }
+
+  const setBillingAddress = (address) => {
+    billingAddress.value = address
+  }
+  // const getShippingAddress = computed(() => shippingAddress.value)
+  // const getBillingAddress = computed(() => billingAddress.value)
+
   const checkout = async (checkoutData) => {
+    // setShippingAddress(checkoutData.shipping_address)
+    // setBillingAddress(checkoutData.billing_address)
     try {
-      const response = await api.post('/checkout', {
+      shippingAddress.value = checkoutData.shipping_address
+      billingAddress.value = checkoutData.billing_address
+      const response = await api.post('/orders/checkout', {
         payment_method: checkoutData.payment_method,
         shipping_address: checkoutData.shipping_address,
         billing_address: checkoutData.billing_address,
@@ -79,5 +95,9 @@ export const useCartStore = defineStore('cart', () => {
     clearCart,
     getCartItems,
     checkout,
+    shippingAddress,
+    billingAddress,
+    // getShippingAddress,
+    // getBillingAddress,
   }
 })

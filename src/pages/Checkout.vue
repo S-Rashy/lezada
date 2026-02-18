@@ -4,9 +4,11 @@ import { useCartStore } from '@/stores/cart'
 import { useAuthStore } from '@/stores/auth'
 import ConfirmedModal from '@/Modals/ConfirmedModal.vue'
 import MainButton from '@/components/Reusables/MainButton.vue'
+import { useOrderStore } from '@/stores/order'
 
 const cartStore = useCartStore()
 const authStore = useAuthStore()
+const orderStore = useOrderStore()
 const user = computed(() => authStore.getUser)
 const useShippingAsBilling = ref(true)
 const isLoading = ref(false)
@@ -49,23 +51,53 @@ watch(
   { immediate: true },
 )
 const shippingRates = {
-  Lagos: 20,
-  Abuja: 25,
-  Rivers: 30,
-  Oyo: 22,
-  Ogun: 18,
+  Nigeria: 20,
+  Ghana: 25,
+  Kenya: 30,
+  Rwanda: 22,
+  Togo: 18,
 }
+const shippingPrice = computed(() => {
+  return shippingRates[form.country] || 0
+})
+
+const formatAddress = (addr) => {
+  return `${addr.address}${addr.apartment ? ', ' + addr.apartment : ''}, ${addr.city}, ${addr.country} ${addr.postalCode}`
+}
+
 const showSuccessModal = ref(false)
 
-const submitCheckout = () => {
-  console.log('Checkout payload:', {
-    user: form,
-    cart: cartStore.cart,
-    total: cartStore.total,
-  })
-      showSuccessModal.value = true
+const submitCheckout = async () => {
+  try {
+    isLoading.value = true
 
-  
+    const shippingAddressObj = {
+      address: form.address,
+      apartment: form.apartment,
+      city: form.city,
+      country: form.country,
+      postalCode: form.postalCode,
+    }
+
+    const shippingAddress = formatAddress(shippingAddressObj)
+
+    const billingAddress = useShippingAsBilling.value
+      ? shippingAddress
+      : formatAddress(shippingAddressObj)
+
+    await cartStore.checkout({
+      payment_method: form.paymentMethod,
+      shipping_address: shippingAddress,
+      billing_address: billingAddress,
+    })
+
+    showSuccessModal.value = true
+  } catch (error) {
+    console.error(error)
+    alert('Checkout failed')
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 
@@ -89,18 +121,25 @@ const submitCheckout = () => {
         <div>
           <select v-model="form.country" class="input mb-3">
             <option value="">Country/Region</option>
-            <option value="Albania">Albania</option>
-            <option value="United States">United States</option>
-            <option value="Canada">Canada</option>
-            <option value="United Kingdom">United Kingdom</option>
             <option value="Nigeria">Nigeria</option>
-            <!-- Add more countries as needed -->
+            <option value="Togo">Togo</option>
+            <option value="Rwanda">Rwanda</option>
+            <option value="Kenya">Kenya</option>
+            <option value="Ghana">Ghana</option>
           </select>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
-          <input v-model="form.firstName" placeholder="First name (optional)" class="input" />
-          <input v-model="form.lastName" placeholder="Last name (optional)" class="input" />
+          <input
+            placeholder="First name (optional)"
+            :value="user?.name?.split(' ')[0] || ''"
+            class="input"
+          />
+          <input
+            placeholder="Last name (optional)"
+            :value="user?.name?.split(' ').slice(1).join(' ') || ''"
+            class="input"
+          />
         </div>
 
         <input v-model="form.address" placeholder="Address" class="input mt-3" />
@@ -120,7 +159,7 @@ const submitCheckout = () => {
         <h2 class="text-lg font-semibold mt-8 mb-4">Shipping method</h2>
         <div class="flex justify-between items-center border rounded-md px-4 py-3 text-sm">
           <span>International Shipping</span>
-          <span class="font-medium">${{ cartStore.shipping }}</span>
+          <span class="font-medium">${{ shippingPrice.toFixed(2) }}</span>
         </div>
 
         <!-- PAYMENT -->
@@ -145,7 +184,7 @@ const submitCheckout = () => {
               </div>
             </div>
 
-            <!-- Card fields (UI only) -->
+            <!-- Card fields -->
             <div class="p-4 space-y-3 bg-gray-50">
               <input v-model="form.cardNumber" placeholder="Card number" class="input" />
 
@@ -209,66 +248,67 @@ const submitCheckout = () => {
         <!-- Submit -->
         <MainButton
           @click="submitCheckout"
+          :disabled="isLoading || cartCount === 0"
           class="mt-8 w-full rounded-md py-4 font-medium"
         >
-          Pay now
+          {{ isLoading ? 'Processing…' : 'Pay now' }}
         </MainButton>
       </div>
 
       <!-- RIGHT: SUMMARY -->
       <div class="lg:mt-0 bg-gray-50">
         <!-- <div class="rounded-lg p-6 shadow-sm sticky top-10"> -->
-          <div class="w-120  p-4">
-            <!-- Scrollable cart items -->
-            <div class="max-h-54 overflow-y-auto space-y-4">
-              <div
-                v-for="item in cartItems"
-                :key="item.id"
-                class="flex items-center justify-between"
-              >
-                <!-- Item image -->
-                <div class="relative">
-                  <img :src="item.image" alt="item.title" class="w-14 h-14 object-cover rounded-md border-3 border-white shadow-lg" />
-                  <span
-                    class="absolute top-0 right-0 bg-black text-white text-xs w-5 h-5 flex items-center justify-center rounded-md"
-                  >
-                    {{ item.quantity }}
-                  </span>
-                </div>
-                <!-- Item title -->
-                <div class="flex-1 ml-3 text-sm">
-                  {{ item.name }}
-                </div>
-                <!-- Item price -->
-                <div class="text-sm font-semibold">
-                  ${{ (item.price * item.quantity).toFixed(2) }}
-                </div>
+        <div class="w-120 p-4">
+          <!-- Scrollable cart items -->
+          <div class="max-h-54 overflow-y-auto space-y-4">
+            <div v-for="item in cartItems" :key="item.id" class="flex items-center justify-between">
+              <!-- Item image -->
+              <div class="relative">
+                <img
+                  :src="item.image"
+                  alt="item.title"
+                  class="w-14 h-14 object-cover rounded-md border-3 border-white shadow-lg"
+                />
+                <span
+                  class="absolute top-0 right-0 bg-black text-white text-xs w-5 h-5 flex items-center justify-center rounded-md"
+                >
+                  {{ item.quantity }}
+                </span>
               </div>
-              <!-- Scroll hint -->
-              <div v-if="cartItems.length > 3" class="text-center text-gray-500 text-xs py-2">
-                Scroll for more items ↓
+              <!-- Item title -->
+              <div class="flex-1 ml-3 text-sm">
+                {{ item.name }}
+              </div>
+              <!-- Item price -->
+              <div class="text-sm font-semibold">
+                ${{ (item.price * item.quantity).toFixed(2) }}
               </div>
             </div>
+            <!-- Scroll hint -->
+            <!-- <div v-if="cartItems.length > 3" class="text-center text-gray-500 text-xs py-2">
+              Scroll for more items ↓
+            </div> -->
+          </div>
 
-            <!-- Divider -->
-            <div class="mt-4 pt-4 space-y-4 text-sm">
-              <div class="flex justify-between">
-                <span>Subtotal</span>
-                <span>{{ cartCount }} items</span>
-                <span>${{ cartTotal.toFixed(2) }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span>Shipping</span>
-                <span>$20.00</span>
-              </div>
-              <div class="flex justify-between font-bold text-lg mt-2">
-                <span>Total</span>
-                <span>USD ${{ (cartTotal + 20).toFixed(2) }}</span>
-              </div>
+          <!-- Divider -->
+          <div class="mt-4 pt-4 space-y-4 text-sm">
+            <div class="flex justify-between">
+              <span>Subtotal</span>
+              <!-- <span>{{ cartCount }} items</span> -->
+              <span>${{ cartTotal.toFixed(2) }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Shipping</span>
+              <span>${{ shippingPrice.toFixed(2) }}</span>
+            </div>
+            <div class="flex justify-between font-bold text-lg mt-2">
+              <span>Total</span>
+              <span>USD ${{ (cartTotal + shippingPrice).toFixed(2) }}</span>
             </div>
           </div>
-          <!-- Items -->
-          <!-- <div
+        </div>
+        <!-- Items -->
+        <!-- <div
             v-for="item in cartStore.cart"
             :key="item.id"
             class="flex items-center gap-4 border-b pb-4 mb-4"
@@ -281,8 +321,8 @@ const submitCheckout = () => {
             <p class="text-sm font-medium">${{ item.price * item.qty }}</p>
           </div> -->
 
-          <!-- Totals -->
-          <!-- <div class="space-y-2 text-sm">
+        <!-- Totals -->
+        <!-- <div class="space-y-2 text-sm">
             <div class="flex justify-between">
               <span class="text-gray-500">Subtotal</span>
               <span>${{ cartStore.subtotal }}</span>
@@ -298,13 +338,10 @@ const submitCheckout = () => {
               <span>${{ cartStore.total }}</span>
             </div>
           </div> -->
-        </div>
-         <ConfirmedModal
-      :show="showSuccessModal"
-      @close="showSuccessModal = false"
-    />
       </div>
+      <ConfirmedModal :show="showSuccessModal" @close="showSuccessModal = false" />
     </div>
+  </div>
   <!-- </div> -->
 </template>
 
