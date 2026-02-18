@@ -35,9 +35,9 @@ const openModal = () => {
 }
 
 const route = useRouter()
-const orderId = orderStore.currentOrder?.id
-if (orderId) {
-  orderStore.fetchOrder(orderId)
+const orderId = computed(() => orderStore.currentOrder?.id)
+if (orderId.value) {
+  orderStore.fetchOrder(orderId.value)
 }
 </script>
 
@@ -69,8 +69,8 @@ if (orderId) {
 
     <div v-if="orderStore.isLoading">Loading...</div>
     <div v-else>
-      <!-- <h2>Order ID: {{ orderStore.currentOrder.id }}</h2>
-    <p>Total: {{ orderStore.currentOrder.total }}</p> -->
+      <h2>Order ID: {{ orderStore.currentOrder?.id }}</h2>
+    <p>Total: {{ orderStore.currentOrder?.total }}</p>
     </div>
     account page
     <MainButton @click="openModal">Log out</MainButton>

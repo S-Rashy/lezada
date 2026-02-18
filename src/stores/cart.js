@@ -1,8 +1,10 @@
 import api from '@/helpers/axios'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { useOrderStore } from './order'
 export const useCartStore = defineStore('cart', () => {
   const cart = ref([])
+  const orderStore = useOrderStore()
 
   const cartCount = computed(() => cart.value.length)
 
@@ -63,24 +65,26 @@ export const useCartStore = defineStore('cart', () => {
   const setBillingAddress = (address) => {
     billingAddress.value = address
   }
-  // const getShippingAddress = computed(() => shippingAddress.value)
-  // const getBillingAddress = computed(() => billingAddress.value)
 
   const checkout = async (checkoutData) => {
-    // setShippingAddress(checkoutData.shipping_address)
-    // setBillingAddress(checkoutData.billing_address)
+    
     try {
       shippingAddress.value = checkoutData.shipping_address
       billingAddress.value = checkoutData.billing_address
+      
       const response = await api.post('/orders/checkout', {
         payment_method: checkoutData.payment_method,
         shipping_address: checkoutData.shipping_address,
         billing_address: checkoutData.billing_address,
       })
+      const orderData = response.data.order
+      orderStore.currentOrder = orderData
 
       cart.value = []
 
-      return response.data
+      // return response.data
+      
+      return orderData
     } catch (error) {
       console.error('Error during checkout:', error)
     }
@@ -97,7 +101,6 @@ export const useCartStore = defineStore('cart', () => {
     checkout,
     shippingAddress,
     billingAddress,
-    // getShippingAddress,
-    // getBillingAddress,
+    
   }
 })
