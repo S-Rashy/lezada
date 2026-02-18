@@ -105,9 +105,9 @@ const gallery = computed(() => {
 
       <div class="flex items-center gap-4">
         <span>Quantity:</span>
-        <div class="flex gap-8 items-center justify-center border-b-2 border-[#777777]">
+        <div class="flex gap-7 items-center justify-center border-b-2 border-[#777777]">
           <button @click="decrease" class="cursor-pointer hover:font-semibold hover:scale-120">−</button>
-          <span>{{ qty }}</span>
+          <span class="w-4 text-center">{{ qty }}</span>
           <button @click="increase" class="cursor-pointer hover:font-semibold hover:scale-120">+</button>
         </div>
       </div>

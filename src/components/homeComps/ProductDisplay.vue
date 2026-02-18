@@ -4,41 +4,37 @@ import { useProductStore } from '../../stores/product'
 import ProductCard from '../Reusables/ProductCard.vue'
 
 const productStore = useProductStore()
-// const prodTab = ref(1)
+const prodTab = ref('new')
+
+const tabs = [
+  { label: 'New', value: 'new' },
+  { label: 'Popular', value: 'popular' },
+  { label: 'Sale', value: 'sale' },
+]
 
 onMounted(() => {
-  productStore.fetchProducts()
+  productStore.fetchProducts({ tab: prodTab.value })
 })
-const allProducts = computed(() => productStore.products)
 
-const displayedProducts = computed(() => {
-  // if (prodTab.value === 1) {
-  //   return productStore.products.slice(0, 6)
-  // } else if (prodTab.value === 2) {
-  //   return productStore.products.slice(6, 13)
-  // } else if (prodTab.value === 3) {
-  //   return productStore.products.slice(13, 20)
-  // }
-})
+const switchTab = (tabValue) => {
+  prodTab.value = tabValue
+  productStore.fetchProducts({ tab: tabValue })
+}
+
+const allProducts = computed(() => productStore.products)
 </script>
 
 <template>
-  <main class="">
+  <main>
     <div class="flex justify-center gap-10 my-12">
-      <!-- @click="prodTab = 1" -->
-      <!-- :class="prodTab === 1 ? 'text-[#333333]' : 'text-[#777]'" -->
-      <h2 class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300">
-        New
-      </h2>
-      <!-- @click="prodTab = 2" -->
-      <!-- :class="prodTab === 2 ? 'text-[#333333]' : 'text-[#777]'" -->
-      <h2 class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300">
-        Popular
-      </h2>
-      <!-- @click="prodTab = 3" -->
-      <!-- :class="prodTab === 3 ? 'text-[#333333]' : 'text-[#777]'" -->
-      <h2 class="text-[48px] hover:text-[#333333] cursor-pointer transition-colors duration-300">
-        Sale
+      <h2
+        v-for="tab in tabs"
+        :key="tab.value"
+        class="text-[48px] cursor-pointer hover:text-[#333333] transition-colors duration-300"
+        :class="prodTab === tab.value ? 'text-[#333333]' : 'text-[#777]'"
+        @click="switchTab(tab.value)"
+      >
+        {{ tab.label }}
       </h2>
     </div>
     <div class="grid grid-cols-3 gap-8">

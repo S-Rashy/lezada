@@ -35,8 +35,8 @@ const cartCount = computed(() => cartStore.cartCount)
             </li>
           </div>
           <li>
-            <a href="/" class="flex items-center gap-[2px]"
-              >Blog <Icon icon="ep:arrow-down" width="16" height="16"
+            <a href="/about" class="flex items-center gap-[2px]"
+              >About Us <Icon icon="ep:arrow-down" width="16" height="16"
             /></a>
           </li>
           <li>

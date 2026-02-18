@@ -29,23 +29,7 @@ export const useCartStore = defineStore('cart', () => {
     fetchCart()
     console.log(response)
   }
-  // const increaseQty = (id) => {
-  //   const existingItem = cart.value.find((item) => item.id === id)
 
-  //   if (existingItem) {
-  //     existingItem.qty++
-  //   }
-  // }
-
-  // const decreaseQty = (id) => {
-  //   const existingItem = cart.value.find((item) => item.id === id)
-
-  //   if (existingItem && existingItem.qty > 1) {
-  //     existingItem.qty--
-  //   } else {
-  //     removeFromCart(id)
-  //   }
-  // }
   const removeFromCart = async (id) => {
     try {
       await api.delete(`/cart/${id}`)
@@ -55,20 +39,36 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
- const clearCart = async () => {
-  const previousCart = [...cart.value] 
-  cart.value = [] 
+  const clearCart = async () => {
+    const previousCart = [...cart.value]
+    cart.value = []
 
-  try {
-    await api.delete('/cart/all')
-  } catch (error) {
-    cart.value = previousCart  
-    console.error('Error clearing cart:', error)
-    throw error
+    try {
+      await api.delete('/cart/all')
+    } catch (error) {
+      cart.value = previousCart
+      console.error('Error clearing cart:', error)
+      throw error
+    }
   }
-}
 
   const getCartItems = computed(() => cart.value)
+
+  const checkout = async (checkoutData) => {
+    try {
+      const response = await api.post('/checkout', {
+        payment_method: checkoutData.payment_method,
+        shipping_address: checkoutData.shipping_address,
+        billing_address: checkoutData.billing_address,
+      })
+
+      cart.value = []
+
+      return response.data
+    } catch (error) {
+      console.error('Error during checkout:', error)
+    }
+  }
   return {
     cartCount,
     cartTotal,
@@ -78,5 +78,6 @@ export const useCartStore = defineStore('cart', () => {
     removeFromCart,
     clearCart,
     getCartItems,
+    checkout,
   }
 })

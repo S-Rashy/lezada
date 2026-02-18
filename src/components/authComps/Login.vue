@@ -4,6 +4,7 @@ import MainButton from '../Reusables/MainButton.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
+import { toast } from 'vue-sonner'
 
 const authStore = useAuthStore()
 const email = ref('')
@@ -14,6 +15,7 @@ const handleLogin = async () => {
   try {
     const response = await authStore.login(email.value, password.value)
     router.push('/')
+    toast.success(`Welcome back, ${response.data.user.name}!`)
     console.log('Login response:', response)
   } catch (error) {
     console.error('Login error:', error)

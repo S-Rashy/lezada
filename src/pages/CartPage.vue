@@ -5,6 +5,8 @@ import { ref, computed, onMounted } from 'vue'
 import { Icon } from '@iconify/vue'
 import MainButton from '@/components/Reusables/MainButton.vue'
 import EmptyCart from './EmptyCart.vue'
+import { toast } from 'vue-sonner'
+import ClearCartModal from '@/Modals/ClearCartModal.vue'
 
 const terms = ref(false)
 
@@ -30,6 +32,15 @@ const removeFromCart = (id) => {
 
 const clearCart = () => {
   cartStore.clearCart()
+}
+
+const showModal = ref(false)
+
+const closeModal = () => {
+  showModal.value = false
+}
+const openModal = () => {
+  showModal.value = true
 }
 </script>
 
@@ -103,7 +114,7 @@ const clearCart = () => {
         <RouterLink to="/">
           <MainButton>CONTINUE SHOPPING</MainButton>
         </RouterLink>
-        <MainButton @click="clearCart">CLEAR CART</MainButton>
+        <MainButton @click="openModal">CLEAR CART</MainButton>
       </div>
     </section>
 
@@ -159,6 +170,7 @@ const clearCart = () => {
         </RouterLink>
       </div>
     </section>
+    <ClearCartModal v-if="showModal" @close="closeModal" />
   </main>
   <EmptyCart v-else />
 </template>

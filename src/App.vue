@@ -23,7 +23,7 @@ onMounted(async () => {
 
 
 <template>
-  <Toaster position="top-center" :offset="80"/>
+  <Toaster position="top-center" :offset="80" :duration="3000" />
 
   <RouterView/>
   

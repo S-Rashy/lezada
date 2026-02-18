@@ -5,8 +5,8 @@ import api from '../helpers/axios'
 export const useAuthStore = defineStore('auth', () => {
   const token = ref(localStorage.getItem('authToken') || null)
   //   const user = ref(JSON.parse(localStorage.getItem('user')) || null)
-  // const user = ref(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null)
-  const user = ref(null)
+  const user = ref(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null)
+  // const user = ref(null)
 
   const setToken = (authToken) => {
     token.value = authToken
@@ -28,7 +28,9 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('user')
   }
 
-  const isAuthenticated = computed(() => token.value !== null)
+  // const isAuthenticated = computed(() => token.value !== null)
+    const isAuthenticated = computed(() => !!token.value)
+
 
   const login = async (email, password) => {
     try {

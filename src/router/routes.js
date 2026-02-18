@@ -3,6 +3,7 @@ import ResetP from '@/components/authComps/ResetP.vue'
 import SignUp from '@/components/authComps/SignUp.vue'
 import AuthLayout from '@/layouts/authLayout/AuthLayout.vue'
 import HomeLayout from '@/layouts/homeLayout/HomeLayout.vue'
+import About from '@/pages/About.vue'
 import Account from '@/pages/Account.vue'
 import CartPage from '@/pages/CartPage.vue'
 import Checkout from '@/pages/Checkout.vue'
@@ -18,6 +19,7 @@ export default [
     children: [
       { path: '', name: 'HomePage', component: HomePage },
       { path: "product/:id", name: "ProductDetails", component: ProdDetails},
+      { path: "about", name: "AboutPage", component: About},
       { path: 'wishlist', name: 'WishlistPage', component: WishlistPage, meta: { requiresAuth: true },},
       { path: 'cart', name: 'CartPage', component: CartPage, meta: { requiresAuth: true } },
       { path: 'checkout', name: 'CheckoutPage', component: Checkout, meta: { requiresAuth: true } },
