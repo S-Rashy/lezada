@@ -2,29 +2,27 @@
 import { ref, computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useCartStore } from '@/stores/cart'
+import MainButton from '@/components/Reusables/MainButton.vue'
 
 // Props & emits
 const props = defineProps({
   modelValue: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 })
 
 const emit = defineEmits(['update:modelValue', 'checkout', 'view-cart'])
 
 const isOpen = computed({
   get: () => props.modelValue,
-  set: (val) => emit('update:modelValue', val)
+  set: (val) => emit('update:modelValue', val),
 })
 
 const agreedToTerms = ref(false)
 
-// Real cart store — expects: cartStore.items[], cartStore.removeItem(id),
-// cartStore.increaseQty(id), cartStore.decreaseQty(id), cartStore.cartTotal
-// Each item should have: { id, name, variant?, price, quantity, image }
 const cartStore = useCartStore()
-const cartItems = computed(() => cartStore.items)
+const cartItems = computed(() => cartStore.getCartItems)
 const cartTotal = computed(() => cartStore.cartTotal)
 const totalQuantity = computed(() => cartStore.cartCount)
 
@@ -58,11 +56,7 @@ function viewCart() {
 <template>
   <!-- Overlay -->
   <Transition name="overlay">
-    <div
-      v-if="isOpen"
-      class="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
-      @click="closeCart"
-    />
+    <div v-if="isOpen" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-40" @click="closeCart" />
   </Transition>
 
   <!-- Cart Drawer -->
@@ -74,22 +68,14 @@ function viewCart() {
       <!-- Header -->
       <div class="flex items-center justify-between px-6 py-5 border-b border-stone-100">
         <div class="flex items-center gap-3">
-          <Icon icon="hugeicons:shopping-cart-01" class="w-5 h-5 text-stone-600" />
-          <h2 class="text-xl font-semibold tracking-tight text-stone-900" style="font-family: 'Playfair Display', Georgia, serif;">
-            Cart
-          </h2>
-          <span
-            v-if="cartItems"
-            class="bg-rose-400 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
-          >
-            {{ totalQuantity }}
-          </span>
+          <h2 class="text-2xl tracking-tight text-stone-900">Cart</h2>
         </div>
+
         <button
           @click="closeCart"
-          class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-100 text-stone-500 hover:text-stone-900 transition-colors"
+          class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-100 text-stone-500 hover:text-stone-900 hover:rotate-90 hover:scale-125 cursor-pointer transition-all duration-200 ease-in-out"
         >
-          <Icon icon="hugeicons:cancel-01" class="w-5 h-5" />
+          <Icon icon="hugeicons:cancel-01" class="w-6 h-6" />
         </button>
       </div>
 
@@ -106,33 +92,23 @@ function viewCart() {
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex justify-between items-start gap-2">
-                <p class="text-sm font-medium text-stone-800 leading-snug">{{ item.name }}</p>
+                <p class="text-sm text-stone-800 leading-snug">{{ item.id }}. {{ item.name }}</p>
                 <button
                   @click="removeItem(item.id)"
                   class="flex-shrink-0 text-stone-300 hover:text-rose-400 transition-colors mt-0.5"
                 >
-                  <Icon icon="hugeicons:delete-02" class="w-4 h-4" />
+                  <Icon icon="hugeicons:cancel-01" class="w-4 h-4" />
                 </button>
               </div>
               <p v-if="item.variant" class="text-xs text-stone-400 mt-0.5">{{ item.variant }}</p>
               <div class="flex items-center justify-between mt-3">
-                <!-- Qty controls -->
-                <div class="flex items-center gap-1 border border-stone-200 rounded-lg overflow-hidden">
-                  <button
-                    @click="decreaseQty(item.id)"
-                    class="px-2 py-1.5 text-stone-500 hover:bg-stone-100 transition-colors flex items-center"
-                  >
-                    <Icon icon="hugeicons:minus-sign" class="w-3.5 h-3.5" />
-                  </button>
-                  <span class="text-sm font-semibold text-stone-800 w-6 text-center">{{ item.quantity }}</span>
-                  <button
-                    @click="increaseQty(item.id)"
-                    class="px-2 py-1.5 text-stone-500 hover:bg-stone-100 transition-colors flex items-center"
-                  >
-                    <Icon icon="hugeicons:plus-sign" class="w-3.5 h-3.5" />
-                  </button>
+                <div class="flex items-center gap-1 overflow-hidden">
+                  <p class="text-sm text-stone-800 text-center">
+                    {{ item.quantity }} <span>x</span>
+                  </p>
+
+                  <p class="text-sm font-semibold text-stone-900">${{ item.price }}</p>
                 </div>
-                <p class="text-sm font-semibold text-stone-900">${{ (item.price * item.quantity).toFixed(2) }} USD</p>
               </div>
             </div>
           </div>
@@ -151,47 +127,51 @@ function viewCart() {
       <div class="border-t border-stone-100 px-6 py-5 space-y-4 bg-white">
         <!-- Total -->
         <div class="flex justify-between items-center">
-          <span class="text-sm font-semibold text-stone-600 uppercase" style="letter-spacing: 0.08em;">Total</span>
-          <span class="text-lg font-bold text-stone-900">${{ cartTotal.toFixed(2) }} USD</span>
+          <span class="font-semibold">Total:</span>
+          <span class="text-lg font-semibold text-stone-900">${{ cartTotal.toFixed(2) }} USD</span>
         </div>
 
         <!-- Terms -->
         <label class="flex items-start gap-3 cursor-pointer group">
           <div
             class="mt-0.5 flex-shrink-0 w-4 h-4 border rounded transition-all flex items-center justify-center"
-            :class="agreedToTerms
-              ? 'bg-rose-400 border-rose-400'
-              : 'bg-white border-stone-300 group-hover:border-rose-300'"
+            :class="
+              agreedToTerms
+                ? 'bg-red-500 border-red-400'
+                : 'bg-white border-stone-300 group-hover:border-red-300'
+            "
             @click="agreedToTerms = !agreedToTerms"
           >
             <Icon v-if="agreedToTerms" icon="hugeicons:tick-01" class="w-3 h-3 text-white" />
           </div>
           <span class="text-xs text-stone-500 leading-relaxed">
-            I agree with the <a href="#" class="underline hover:text-stone-800">terms and conditions</a>
+            I agree with the
+            <a href="#" class="underline hover:text-stone-800">terms and conditions</a>
           </span>
         </label>
 
         <!-- Checkout -->
-        <button
-          @click="checkout"
-          :disabled="!agreedToTerms || !cartItems.length"
-          class="w-full py-3.5 text-sm font-bold tracking-widest uppercase transition-all flex items-center justify-center gap-2"
-          :class="agreedToTerms && cartItems.length
-            ? 'bg-rose-400 hover:bg-rose-500 text-white cursor-pointer'
-            : 'bg-stone-200 text-stone-400 cursor-not-allowed'"
-        >
-          <Icon icon="hugeicons:credit-card" class="w-4 h-4" />
-          Checkout
-        </button>
+        <RouterLink to="/checkout" >
+            <button
+              @click="checkout"
+              :disabled="!agreedToTerms || !cartItems.length"
+              class="w-full py-3.5 uppercase mb-5 transition-all"
+              :class="
+                agreedToTerms && cartItems.length
+                  ? 'bg-red-400 hover:bg-red-500 text-white cursor-pointer'
+                  : 'bg-stone-200 text-stone-400 cursor-not-allowed'
+              "
+            >
+              Checkout
+            </button>
+        </RouterLink>
 
         <!-- View Cart -->
-        <button
-          @click="viewCart"
-          class="w-full py-3.5 bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold tracking-widest uppercase transition-colors flex items-center justify-center gap-2"
-        >
-          <Icon icon="hugeicons:shopping-bag-check" class="w-4 h-4" />
-          View Cart
-        </button>
+        <RouterLink to="/cart">
+            <MainButton @click="viewCart" class="w-full py-3.5 uppercase transition-colors">
+              View Cart
+            </MainButton>
+        </RouterLink>
       </div>
     </div>
   </Transition>

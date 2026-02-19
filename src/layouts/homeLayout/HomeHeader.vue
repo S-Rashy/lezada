@@ -27,7 +27,7 @@ const cartOpen = ref(false)
       <nav>
         <ul class="flex gap-10 font-[15px] text-[#777]">
           <li><a href="/">Home</a></li>
-          <li><a href="/">Shop</a></li>
+          <li><a href="/shop">Shop</a></li>
 
           <div class="group relative inline-block">
             <li>
@@ -53,7 +53,7 @@ const cartOpen = ref(false)
         <RouterLink to="/wishlist" class="relative">
           <p
             v-if="wishlistCount > 0"
-            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-9 right-0 z-20"
+            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 right-0 z-20"
           >
             {{ wishlistCount }}
           </p>
@@ -69,7 +69,7 @@ const cartOpen = ref(false)
         <button @click="cartOpen = true" class="relative cursor-pointer">
           <p
             v-if="cartCount > 0"
-            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-5 left-3 z-20"
+            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 left-3 z-20"
           >
             {{ cartCount }}
           </p>

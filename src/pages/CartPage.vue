@@ -111,7 +111,7 @@ const openModal = () => {
       </table>
       <div class="flex justify-end gap-4">
         <MainButton>UPDATE CART</MainButton>
-        <RouterLink to="/">
+        <RouterLink to="/shop">
           <MainButton>CONTINUE SHOPPING</MainButton>
         </RouterLink>
         <MainButton @click="openModal">CLEAR CART</MainButton>
@@ -152,7 +152,7 @@ const openModal = () => {
           </tr> -->
           <tr>
             <th>TOTAL</th>
-            <td>${{ (cartTotal + 10).toFixed(2) }}</td>
+            <td>${{ cartTotal.toFixed(2) }}</td>
           </tr>
         </table>
 
