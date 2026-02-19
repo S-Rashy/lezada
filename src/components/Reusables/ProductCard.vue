@@ -5,7 +5,9 @@ import { useWishlistStore } from '../../stores/wishlist'
 import { useCartStore } from '@/stores/cart'
 import { toast } from 'vue-sonner'
 import { useRouter } from 'vue-router'
+import { useCurrency } from '@/helpers/useCurrency'
 const router = useRouter()
+const { format } = useCurrency()
 
 const goToProduct = () => {
   router.push(`/product/${props.product.id}`)
@@ -49,10 +51,10 @@ const addToCart = () => {
 
       <aside class="flex justify-between px-4 relative z-10">
         <div class="flex flex-col gap-2 text-white text-sm">
-          <p class="bg-[#98d8ca] p-2 rounded-full size-15 flex items-center justify-center">SALE</p>
-          <p class="bg-[#98d8ca] p-2 rounded-full size-15 flex items-center justify-center">
+          <!-- <p class="bg-[#98d8ca] p-2 rounded-full size-15 flex items-center justify-center">SALE</p> -->
+          <!-- <p class="bg-[#98d8ca] p-2 rounded-full size-15 flex items-center justify-center">
             - 15%
-          </p>
+          </p> -->
         </div>
 
         <div
@@ -103,8 +105,8 @@ const addToCart = () => {
       </button>
 
       <p class="font-semibold text-[#333333]">
-        ${{ (price * 0.85).toFixed(2) }}
-        <span class="line-through text-[#777] 2"> ${{ price.toFixed(2) }} </span>
+        {{ format(price * 0.85) }}
+        <span class="line-through text-[#777] 2"> ${{ format(price) }} </span>
       </p>
     </div>
   </main>

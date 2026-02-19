@@ -1,20 +1,56 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import FilterItem from './FilterItem.vue'
+<script setup>
+import { useProductStore } from '@/stores/product'
 
-const open = ref<string | null>('size')
-
-const toggle = (key: string) => {
-  open.value = open.value === key ? null : key
-}
+const productStore = useProductStore()
 </script>
 
 <template>
-  <div class="space-y-6">
-    <FilterItem title="Custom Menu" :open="open === 'menu'" @toggle="toggle('menu')" />
-    <FilterItem title="Availability" :open="open === 'availability'" @toggle="toggle('availability')" />
-    <FilterItem title="Price" :open="open === 'price'" @toggle="toggle('price')" />
-    <FilterItem title="Color" :open="open === 'color'" @toggle="toggle('color')" />
-    <FilterItem title="Size" :open="open === 'size'" @toggle="toggle('size')" />
+  <div class="space-y-8">
+
+    <!-- Category -->
+    <div>
+      <h3 class="font-medium text-lg mb-4">Category</h3>
+      <select
+        v-model="productStore.selectedCategory"
+        class="w-full border px-3 py-2 text-sm"
+      >
+        <option :value="null">All categories</option>
+        <option
+          v-for="cat in productStore.categories"
+          :key="cat"
+          :value="cat"
+        >
+          {{ cat }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Price -->
+    <div>
+      <h3 class="font-medium text-lg mb-4">Price</h3>
+      <div class="flex gap-4">
+        <input
+          type="number"
+          placeholder="Min"
+          class="w-full border px-3 py-2 text-sm"
+          v-model.number="productStore.minPrice"
+        />
+        <input
+          type="number"
+          placeholder="Max"
+          class="w-full border px-3 py-2 text-sm"
+          v-model.number="productStore.maxPrice"
+        />
+      </div>
+    </div>
+
+    <!-- Stock -->
+    <div>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" v-model="productStore.inStockOnly" />
+        <span class="text-sm">In stock only</span>
+      </label>
+    </div>
+
   </div>
 </template>

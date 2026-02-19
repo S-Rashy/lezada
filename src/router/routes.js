@@ -7,6 +7,7 @@ import About from '@/pages/About.vue'
 import Account from '@/pages/Account.vue'
 import CartPage from '@/pages/CartPage.vue'
 import Checkout from '@/pages/Checkout.vue'
+import Contact from '@/pages/Contact.vue'
 import HomePage from '@/pages/HomePage.vue'
 import ProdDetails from '@/pages/ProdDetails.vue'
 import Shop from '@/pages/Shop.vue'
@@ -21,6 +22,7 @@ export default [
       { path: '', name: 'HomePage', component: HomePage },
       { path: "product/:id", name: "ProductDetails", component: ProdDetails},
       { path: "about", name: "AboutPage", component: About},
+      { path: "contact", name: "ContactPage", component: Contact},
       { path: "shop", name: "ShopPage", component: Shop},
       { path: 'wishlist', name: 'WishlistPage', component: WishlistPage, meta: { requiresAuth: true },},
       { path: 'cart', name: 'CartPage', component: CartPage, meta: { requiresAuth: true } },

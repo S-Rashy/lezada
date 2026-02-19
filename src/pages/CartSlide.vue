@@ -3,6 +3,8 @@ import { ref, computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useCartStore } from '@/stores/cart'
 import MainButton from '@/components/Reusables/MainButton.vue'
+import { useCurrency } from '@/helpers/useCurrency'
+const { format } = useCurrency()
 
 // Props & emits
 const props = defineProps({
@@ -34,17 +36,10 @@ function removeItem(id) {
   cartStore.removeItem(id)
 }
 
-function increaseQty(id) {
-  cartStore.increaseQty(id)
-}
-
-function decreaseQty(id) {
-  cartStore.decreaseQty(id)
-}
-
 function checkout() {
   if (!agreedToTerms.value || !cartItems.value.length) return
   emit('checkout', cartItems.value)
+  closeCart()
 }
 
 function viewCart() {

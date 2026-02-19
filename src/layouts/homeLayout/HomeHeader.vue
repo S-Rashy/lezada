@@ -39,7 +39,7 @@ const cartOpen = ref(false)
           </div>
 
           <li><a href="/about">About Us</a></li>
-          <li><a href="/">Contact us</a></li>
+          <li><a href="/contact">Contact us</a></li>
         </ul>
       </nav>
 

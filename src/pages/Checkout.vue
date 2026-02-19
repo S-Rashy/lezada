@@ -5,6 +5,8 @@ import { useAuthStore } from '@/stores/auth'
 import ConfirmedModal from '@/Modals/ConfirmedModal.vue'
 import MainButton from '@/components/Reusables/MainButton.vue'
 import { useOrderStore } from '@/stores/order'
+import { useCurrency } from '@/helpers/useCurrency'
+const { format } = useCurrency()
 
 const cartStore = useCartStore()
 const authStore = useAuthStore()
@@ -54,8 +56,8 @@ const shippingRates = {
   Nigeria: 20,
   Ghana: 25,
   Kenya: 30,
-  Rwanda: 22,
-  Togo: 18,
+  Rwanda: 29,
+  Togo: 28,
 }
 const shippingPrice = computed(() => {
   return shippingRates[form.country] || 0

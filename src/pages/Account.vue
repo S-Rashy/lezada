@@ -7,7 +7,9 @@ import { useAuthStore } from '@/stores/auth'
 import { useOrderStore } from '@/stores/order'
 import { Icon } from '@iconify/vue'
 import { useCartStore } from '@/stores/cart'
+import { useCurrency } from '@/helpers/useCurrency'
 
+const { format } = useCurrency()
 const authStore = useAuthStore()
 const orderStore = useOrderStore()
 const cartStore = useCartStore()
@@ -23,26 +25,39 @@ const closeModal = () => (showModal.value = false)
 
 onMounted(async () => {
   await orderStore.fetchOrders()
-
-  // Automatically mark orders as completed after delivery time
-  orderStore.orders.forEach(o => {
-    if (o.status === 'pending') startDeliveryTimer(o)
-  })
 })
 
-const startDeliveryTimer = (order) => {
-  // Option 1: 2 days delivery (realistic)
-  // const deliveryMs = 2 * 24 * 60 * 60 * 1000
+/**
+ * ============================
+ * DELIVERY CONFIG
+ * ============================
+ */
 
-  // Option 2: 3 minutes delivery (testing)
-  const deliveryMs = 3 * 60 * 1000
+// OPTION 1: 3 minutes (testing)
+const DELIVERY_MS = 3 * 60 * 1000
 
-  setTimeout(() => {
-    order.status = 'completed'
-  }, deliveryMs)
-}
+// OPTION 2: 2 days (realistic)
+// const DELIVERY_MS = 2 * 24 * 60 * 60 * 1000
 
-const orders = computed(() => orderStore.orders)
+/**
+ * ============================
+ * ORDERS WITH COMPUTED STATUS
+ * ============================
+ */
+
+const orders = computed(() => {
+  return orderStore.orders.map(o => {
+    const createdAt = new Date(o.created_at).getTime()
+    const now = Date.now()
+
+    const isCompleted = now - createdAt >= DELIVERY_MS
+
+    return {
+      ...o,
+      status: isCompleted ? 'completed' : 'pending'
+    }
+  })
+})
 
 const toggleOrder = (orderId) => {
   if (expandedOrders.value.includes(orderId)) {
@@ -61,7 +76,7 @@ const formatDate = (dateStr) => {
 
 const estimatedDelivery = (dateStr) => {
   const d = new Date(dateStr)
-  d.setDate(d.getDate() + 3) // estimated delivery shown
+  d.setTime(d.getTime() + DELIVERY_MS)
   return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
 }
 
@@ -78,6 +93,7 @@ const statusColor = (status) => {
   }
 }
 </script>
+
 
 <template>
   <PageHeader>

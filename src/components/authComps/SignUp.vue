@@ -1,8 +1,10 @@
 <script setup>
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import MainButton from '../Reusables/MainButton.vue'
+import { toast } from 'vue-sonner'
+import { Icon } from '@iconify/vue'
 const authStore = useAuthStore()
 
 const router = useRouter()
@@ -15,13 +17,11 @@ const form = reactive({
   address: '',
   password: '',
 })
+const showPassword = ref(false)
 
 const register = async () => {
   try {
     const name = `${form.firstname} ${form.lastname}`.trim()
-    console.log('FULL NAME:', name)
-    console.log('FIRST:', form.firstname)
-    console.log('LAST:', form.lastname)
 
     await authStore.register({
       name: name,
@@ -30,6 +30,8 @@ const register = async () => {
       address: form.address,
       password: form.password,
     })
+    toast.success(`Welcome aboard, ${name}!`)
+
     router.push('/')
   } catch (error) {
     console.error(error)
@@ -51,8 +53,19 @@ const register = async () => {
 
       <label for="email">Email</label>
       <input id="email" type="email" placeholder="Email" v-model="form.email" />
-      <label for="password">Password</label>
-      <input id="password" type="password" placeholder="Password" v-model="form.password" />
+
+      <div class="flex items-center justify-between w-full bg-white pr-4">
+        <input
+          :type="showPassword ? 'text' : 'password'"
+          placeholder="Password"
+          v-model="form.password"
+        />
+        <Icon
+          :icon="showPassword ? 'mdi:eye-off-outline' : 'mdi:eye-outline'"
+          @click="showPassword = !showPassword"
+          class="cursor-pointer text-gray-600"
+        />
+      </div>
 
       <div class="flex justify-between items-center my-4">
         <MainButton type="submit" class="w-[150px]">CREATE</MainButton>

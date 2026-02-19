@@ -31,13 +31,14 @@ const showPassword = ref(false)
 
     <form @submit.prevent="handleLogin">
       <input type="email" placeholder="Email" v-model="email" />
-      <div class="flex items-center justify-between w-full">
+  
+      <div class="flex items-center justify-between w-full bg-white pr-4">
         <input
           :type="showPassword ? 'text' : 'password'"
           placeholder="Password"
           v-model="password"
         />
-        <Icon icon="mdi:eye-outline" @click="showPassword = !showPassword" />
+        <Icon icon="mdi:eye-outline" @click="showPassword = !showPassword" class="cursor-pointer" />
       </div>
       <div class="flex justify-between items-center my-4">
         <MainButton type="submit" class="w-[150px]">SIGN IN</MainButton>

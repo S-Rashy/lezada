@@ -6,7 +6,8 @@ import { Icon } from '@iconify/vue'
 import api from '@/helpers/axios'
 import { useCartStore } from '@/stores/cart'
 import MainButton from '@/components/Reusables/MainButton.vue'
-
+import { useCurrency } from '@/helpers/useCurrency'
+const { format } = useCurrency()
 const route = useRoute()
 const cartStore = useCartStore()
 
@@ -90,7 +91,7 @@ const gallery = computed(() => {
         <span class="font-medium">2 In Stock</span>
       </p>
 
-      <p class="text-xl font-semibold">${{ price.toFixed(2) }}</p>
+      <p class="text-xl font-semibold">{{ format(price) }}</p>
 
       <div class="flex items-center gap-6 text-sm text-[#555]">
         <span class="flex items-center gap-1">
