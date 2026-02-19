@@ -33,10 +33,10 @@ const toggleWishlist = () => {
   )
   wishlistStore.toggleWishlist(props.product)
 }
-// const addToCart = () => {
-//    toast.success(`${props.product.name} added to cart `)
-//   cartStore.addToCart({ product_id: props.product.id, quantity: 1 })
-// }
+const addToCart = () => {
+   toast.success(`${props.product.name} added to cart `)
+  cartStore.addToCart({ product_id: props.product.id, quantity: 1 })
+}
 </script>
 
 <template>
