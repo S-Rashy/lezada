@@ -28,13 +28,13 @@ const isInWishlist = computed(() => wishlistStore.isInWishlist(props.product.id)
 const toggleWishlist = () => {
   toast(
     isInWishlist.value
-    ? `${props.product.name} removed from wishlist`
-    : `${props.product.name} added to wishlist`
+      ? `${props.product.name} removed from wishlist`
+      : `${props.product.name} added to wishlist`,
   )
   wishlistStore.toggleWishlist(props.product)
 }
 const addToCart = () => {
-   toast.success(`${props.product.name} added to cart `)
+  toast.success(`${props.product.name} added to cart `)
   cartStore.addToCart({ product_id: props.product.id, quantity: 1 })
 }
 </script>
