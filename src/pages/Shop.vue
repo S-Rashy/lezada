@@ -15,10 +15,10 @@ onMounted(() => {
 </script>
 
 <template>
-    <PageHeader>
-      <template #path>Home</template>
-      <template #page>Shop</template>
-    </PageHeader>
+  <PageHeader>
+    <template #path>Home</template>
+    <template #page>Shop</template>
+  </PageHeader>
   <div class="max-w-7xl mx-auto px-6 py-8">
     <Topbar />
 
