@@ -6,20 +6,12 @@ const productStore = useProductStore()
 
 <template>
   <div class="space-y-8">
-
     <!-- Category -->
     <div>
       <h3 class="font-medium text-lg mb-4">Category</h3>
-      <select
-        v-model="productStore.selectedCategory"
-        class="w-full border px-3 py-2 text-sm"
-      >
+      <select v-model="productStore.selectedCategory" class="w-full border px-3 py-2 text-sm">
         <option :value="null">All categories</option>
-        <option
-          v-for="cat in productStore.categories"
-          :key="cat"
-          :value="cat"
-        >
+        <option v-for="cat in productStore.categories" :key="cat" :value="cat">
           {{ cat }}
         </option>
       </select>
@@ -51,6 +43,5 @@ const productStore = useProductStore()
         <span class="text-sm">In stock only</span>
       </label>
     </div>
-
   </div>
 </template>
