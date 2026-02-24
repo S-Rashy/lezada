@@ -21,9 +21,9 @@ onMounted(async () => {
   })
 })
 
-watch(currentPage, (val) => {
+watch([currentPage, perPage], () => {
   productStore.fetchProducts({
-    page: val,
+    page: currentPage.value,
     per_page: perPage.value,
   })
 })
@@ -38,7 +38,6 @@ const next = () => {
     currentPage.value++
   }
 }
-
 </script>
 
 <template>
@@ -49,20 +48,22 @@ const next = () => {
   <div class="max-w-7xl mx-auto px-6 py-8">
     <!-- <Topbar /> -->
 
-   <div class="flex items-center justify-between mt-4">
-  <h3>
-    Showing {{ products.length }} of
-    {{ productStore.getPagination?.total || 0 }}
-  </h3>
+    <div class="flex items-center justify-between mt-4">
+      <h3>
+        Showing
+        {{ (currentPage - 1) * perPage + 1 }}
+        –
+        {{ (currentPage - 1) * perPage + products.length }}
+        of {{ productStore.getPagination?.total || 0 }}
+      </h3>
 
-  <select v-model="perPage">
-    <option :value="10">10</option>
-    <option :value="15">15</option>
-    <option :value="20">20</option>
-    <option :value="25">25</option>
-  </select>
-</div>
-
+      <select v-model="perPage">
+        <option :value="10">10</option>
+        <option :value="15">15</option>
+        <option :value="20">20</option>
+        <option :value="25">25</option>
+      </select>
+    </div>
 
     <div class="grid grid-cols-3 gap-8 mt-8">
       <ProductCard v-for="product in products" :key="product.id" :product="product" />
