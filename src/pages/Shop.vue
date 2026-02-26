@@ -11,7 +11,7 @@ import ProductCard from '@/components/Reusables/ProductCard.vue'
 const productStore = useProductStore()
 const products = computed(() => productStore.getProducts)
 const currentPage = ref(1)
-const perPage = ref(10)
+const perPage = ref(15)
 const lastPage = computed(() => productStore.getPagination.last_page)
 
 onMounted(async () => {
@@ -60,10 +60,10 @@ const next = () => {
       <div class="space-x-2">
         <span>Show</span>
         <select v-model="perPage" class="border p-2">
-          <option :value="10">10</option>
           <option :value="15">15</option>
           <option :value="20">20</option>
           <option :value="25">25</option>
+          <option :value="30">30</option>
         </select>
         <span>per page</span>
       </div>
@@ -85,7 +85,7 @@ const next = () => {
   </div>
 
   <div class="mt-6 flex gap-5 w-full justify-center">
-    <button @click="previous">prev</button>
+    <button @click="previous">Prev</button>
     <button
       v-for="page in lastPage"
       :key="page"
@@ -95,6 +95,6 @@ const next = () => {
     >
       {{ page }}
     </button>
-    <button @click="next">next</button>
+    <button @click="next">Next</button>
   </div>
 </template>
