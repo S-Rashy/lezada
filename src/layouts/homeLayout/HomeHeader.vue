@@ -13,28 +13,47 @@ const wishlistCount = computed(() => wishlistStore.wishlistCount)
 const cartCount = computed(() => cartStore.cartCount)
 
 const cartOpen = ref(false)
+const mobileOpen = ref(false)
 </script>
 
 <template>
   <main class="fixed bg-white w-full top-0 left-0 right-0 z-50 shadow-sm">
-    <header class="px-8 py-6 flex justify-between">
-      <a href="/">
+    <header class="px-4 py-4 md:px-8 md:py-6 flex items-center justify-between">
+
+      <!-- Mobile Hamburger -->
+      <button 
+        @click="mobileOpen = !mobileOpen"
+        class="md:hidden"
+      >
+        <Icon 
+          :icon="mobileOpen ? 'mdi:close' : 'mdi:menu'" 
+          width="26" 
+          height="26" 
+        />
+      </button>
+
+      <!-- Logo -->
+      <a href="/" class="flex justify-center md:justify-start">
         <img
+          class="w-28 md:w-auto"
           src="https://lezada-demo.myshopify.com/cdn/shop/files/logo_300x300.png?v=1613746425"
           alt="Logo"
         />
       </a>
-      <nav>
-        <ul class="flex gap-10 font-[15px] text-[#777]">
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:block">
+        <ul class="flex gap-10 font-[15px] text-[#777] items-center">
           <li><a href="/">Home</a></li>
           <li><a href="/shop">Shop</a></li>
 
-          <div class="group relative inline-block">
+          <div class="group relative inline-block border">
             <li>
-              <a href="/" class="flex items-center gap-[2px]">
-                Catalog <Icon icon="ep:arrow-down" width="16" height="16" />
+              <a href="/" class="flex border items-center gap-1">
+                Catalog
+                <Icon icon="ep:arrow-down" width="16" height="16" />
               </a>
-              <CatalogDD />
+              <!-- <CatalogDD /> -->
             </li>
           </div>
 
@@ -43,8 +62,15 @@ const cartOpen = ref(false)
         </ul>
       </nav>
 
-      <div class="flex gap-10 items-center">
-        <Icon icon="tdesign:search" width="24" height="24" class="cursor-pointer" />
+      <!-- Right Icons -->
+      <div class="flex gap-4 md:gap-8 items-center">
+
+        <Icon 
+          icon="tdesign:search" 
+          width="24" 
+          height="24" 
+          class="cursor-pointer hidden sm:block" 
+        />
 
         <RouterLink to="/account">
           <Icon icon="ri:user-fill" width="24" height="24" />
@@ -53,7 +79,7 @@ const cartOpen = ref(false)
         <RouterLink to="/wishlist" class="relative">
           <p
             v-if="wishlistCount > 0"
-            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 right-0 z-20"
+            class="text-white bg-[#DB4444] rounded-full w-4 h-4 text-[11px] flex items-center justify-center absolute -top-1 -right-1 z-20"
           >
             {{ wishlistCount }}
           </p>
@@ -61,15 +87,14 @@ const cartOpen = ref(false)
             icon="solar:heart-outline"
             width="24"
             height="24"
-            class="relative z-10 hover:scale-120 font-semibold transition-all duration-200 ease-in"
+            class="relative z-10 transition-all duration-200 hover:scale-110"
           />
         </RouterLink>
 
-        <!-- Cart button — opens slider -->
-        <button @click="cartOpen = true" class="relative cursor-pointer">
+        <button @click="cartOpen = true" class="relative">
           <p
             v-if="cartCount > 0"
-            class="text-white bg-[#DB4444] rounded-full size-4 text-[12px] text-center absolute bottom-4 left-3 z-20"
+            class="text-white bg-[#DB4444] rounded-full w-4 h-4 text-[11px] flex items-center justify-center absolute -top-1 -right-1 z-20"
           >
             {{ cartCount }}
           </p>
@@ -77,10 +102,22 @@ const cartOpen = ref(false)
         </button>
       </div>
     </header>
+
+    <!-- Mobile Navigation -->
+    <div 
+      v-if="mobileOpen"
+      class="md:hidden bg-white border-t px-6 py-6 space-y-4 text-[#555] font-medium shadow-md"
+    >
+      <a href="/" class="block">Home</a>
+      <a href="/shop" class="block">Shop</a>
+      <a href="/" class="block">Catalog</a>
+      <a href="/about" class="block">About Us</a>
+      <a href="/contact" class="block">Contact us</a>
+    </div>
   </main>
 
   <!-- Cart Slider -->
   <CartSlide v-model="cartOpen" />
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
