@@ -1,6 +1,6 @@
 <script setup>
 import { Icon } from '@iconify/vue'
-import CurrencyDD from '@/components/CurrencyDD.vue';
+import CurrencyDD from '@/components/CurrencyDD.vue'
 </script>
 
 <template>
@@ -47,7 +47,7 @@ import CurrencyDD from '@/components/CurrencyDD.vue';
           <option value="">GBP £</option>
           <option value="">JPY ¥</option>
         </select> -->
-        <CurrencyDD/>
+        <CurrencyDD />
 
         <select name="" id="" class="border p-3 outline-none">
           <option value="">English</option>
