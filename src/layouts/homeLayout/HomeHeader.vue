@@ -19,17 +19,9 @@ const mobileOpen = ref(false)
 <template>
   <main class="fixed bg-white w-full top-0 left-0 right-0 z-50 shadow-sm">
     <header class="px-4 py-4 md:px-8 md:py-6 flex items-center justify-between">
-
       <!-- Mobile Hamburger -->
-      <button 
-        @click="mobileOpen = !mobileOpen"
-        class="md:hidden"
-      >
-        <Icon 
-          :icon="mobileOpen ? 'mdi:close' : 'mdi:menu'" 
-          width="26" 
-          height="26" 
-        />
+      <button @click="mobileOpen = !mobileOpen" class="md:hidden">
+        <Icon :icon="mobileOpen ? 'mdi:close' : 'mdi:menu'" width="26" height="26" />
       </button>
 
       <!-- Logo -->
@@ -64,13 +56,7 @@ const mobileOpen = ref(false)
 
       <!-- Right Icons -->
       <div class="flex gap-4 md:gap-8 items-center">
-
-        <Icon 
-          icon="tdesign:search" 
-          width="24" 
-          height="24" 
-          class="cursor-pointer hidden sm:block" 
-        />
+        <Icon icon="tdesign:search" width="24" height="24" class="cursor-pointer hidden sm:block" />
 
         <RouterLink to="/account">
           <Icon icon="ri:user-fill" width="24" height="24" />
@@ -104,7 +90,7 @@ const mobileOpen = ref(false)
     </header>
 
     <!-- Mobile Navigation -->
-    <div 
+    <div
       v-if="mobileOpen"
       class="md:hidden bg-white border-t px-6 py-6 space-y-4 text-[#555] font-medium shadow-md"
     >
