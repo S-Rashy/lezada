@@ -39,9 +39,9 @@ const mobileOpen = ref(false)
           <li><a href="/">Home</a></li>
           <li><a href="/shop">Shop</a></li>
 
-          <div class="group relative inline-block border">
+          <div class="group relative inline-block">
             <li>
-              <a href="/" class="flex border items-center gap-1">
+              <a href="/" class="flex items-center gap-1">
                 Catalog
                 <Icon icon="ep:arrow-down" width="16" height="16" />
               </a>
