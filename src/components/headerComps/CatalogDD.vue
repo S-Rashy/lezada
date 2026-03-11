@@ -28,8 +28,8 @@ const menuCategories = [
     title: 'New Product',
     items: [
       { name: 'Belt' },
-      { name: 'Wallets', badge: 'SALE'  },
-      { name: 'Card Holders'},
+      { name: 'Wallets', badge: 'SALE' },
+      { name: 'Card Holders' },
       { name: 'Bags' },
       { name: 'Executive bag' },
       { name: 'Cufflinks' },
@@ -85,10 +85,10 @@ const menuCategories = [
               <img
                 src="https://lezada-demo.myshopify.com/cdn/shop/products/per1_360x.jpg?v=1551249474"
                 alt="Featured"
-                class="w-full h-44 object-contain "
+                class="w-full h-44 object-contain"
               />
             </div>
-            <h4 class=" font-medium text-sm">Organic Moon Fruit</h4>
+            <h4 class="font-medium text-sm">Organic Moon Fruit</h4>
             <div class="flex items-center gap-2 mt-1">
               <span class="text-black text-sm">$39.00</span>
               <span class="text-gray-400 line-through text-xs">$60.00</span>
