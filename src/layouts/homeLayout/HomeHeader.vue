@@ -36,8 +36,8 @@ const mobileOpen = ref(false)
       <!-- Desktop Nav -->
       <nav class="hidden md:block">
         <ul class="flex gap-10 font-[15px] text-[#777] items-center">
-          <li><a href="/">Home</a></li>
-          <li><a href="/shop">Shop</a></li>
+          <li><RouterLink to="/">Home</RouterLink></li>
+          <li><RouterLink to="/shop">Shop</RouterLink></li>
 
           <div class="group relative inline-block">
             <li>
@@ -45,12 +45,12 @@ const mobileOpen = ref(false)
                 Catalog
                 <Icon icon="ep:arrow-down" width="16" height="16" />
               </a>
-              <!-- <CatalogDD /> -->
+              <CatalogDD />
             </li>
           </div>
 
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/contact">Contact us</a></li>
+          <li><RouterLink to="/about">About Us</RouterLink></li>
+          <li><RouterLink to="/contact">Contact us</RouterLink></li>
         </ul>
       </nav>
 
@@ -94,11 +94,11 @@ const mobileOpen = ref(false)
       v-if="mobileOpen"
       class="md:hidden bg-white border-t px-6 py-6 space-y-4 text-[#555] font-medium shadow-md"
     >
-      <a href="/" class="block">Home</a>
-      <a href="/shop" class="block">Shop</a>
-      <a href="/" class="block">Catalog</a>
-      <a href="/about" class="block">About Us</a>
-      <a href="/contact" class="block">Contact us</a>
+      <RouterLink to="/" class="block">Home</RouterLink>
+      <RouterLink to="/shop" class="block">Shop</RouterLink>
+      <RouterLink to="/catalog" class="block">Catalog</RouterLink>
+      <RouterLink to="/about" class="block">About Us</RouterLink>
+      <RouterLink to="/contact" class="block">Contact us</RouterLink>
     </div>
   </main>
 
