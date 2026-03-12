@@ -45,7 +45,7 @@ const mobileOpen = ref(false)
                 Catalog
                 <Icon icon="ep:arrow-down" width="16" height="16" />
               </a>
-              <CatalogDD />
+              <!-- <CatalogDD /> -->
             </li>
           </div>
 
